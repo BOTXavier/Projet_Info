@@ -24,3 +24,4 @@ class labyrinthe:
 Lab = labyrinthe(10,10)
 
 #ceci est une carotte
+print(3)
