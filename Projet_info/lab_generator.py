@@ -23,3 +23,4 @@ class labyrinthe:
 Lab = labyrinthe(10,10)
 
 
+print(3)
