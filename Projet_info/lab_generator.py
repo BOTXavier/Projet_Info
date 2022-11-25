@@ -21,6 +21,5 @@ class labyrinthe:
         self.lab = [[Case() for i in range(self.columns)] for j in range[self.lines]]
 
 Lab = labyrinthe(10,10)
-pass
-pomme de terre
+
 
