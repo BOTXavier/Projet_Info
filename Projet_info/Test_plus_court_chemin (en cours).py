@@ -37,9 +37,10 @@ class labyrinthe:
         
     "methode de construction du laby (methode DFS)"
     def laby_DFS(self): 
-        # Entree: objet labyrinthe sans chemins (False partout)
-        # Sortie: objet labyrinthe (construit)
-              
+        """
+        Entree: objet labyrinthe sans chemins (False partout)
+        Sortie: objet labyrinthe (construit)
+        """     
         p=self.columns
         n=self.lines
         case_traitees=[[False for i in range(p)] for j in range(n)] #permet de marquer True sur les cellules non traitées
