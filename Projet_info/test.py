@@ -23,8 +23,4 @@ for i in range(len(laby2)):
                         plt.plot([j+1, j+1], [i, i+1], 'blue')
                 if 'W' not in dir:
                         plt.plot([j, j], [i, i+1], 'blue')
-
-
-
-
 plt.show()
