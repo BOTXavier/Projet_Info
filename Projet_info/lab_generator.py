@@ -5,10 +5,10 @@ class Case:
     def  __init__(self,x,y):
         self.x = x
         self.y = y
-        self.North = False
-        self.South = False
-        self.Est = False
-        self.West = False
+        self.North = True
+        self.South = True
+        self.Est = True
+        self.West = True
         self.IsEntrence = False
         self.IsExit = False
         self.cote=[self.North,self.South,self.Est,self.West]
@@ -24,12 +24,16 @@ class labyrinth:
 
 
     def show_laby(self):
-        plt.plot([-0.5,self.columns+0.5],[-0.5,-0.5],'black')
-        plt.plot([-0.5,self.columns+0.5],[self.lines+0.5,self.lines+0.5],'black')
-        plt.plot([-0.5,-0.5],[-0.5,self.lines+0.5],'black')
-        plt.plot([self.columns+0.5,self.columns+0.5],[-0.5,self.lines+0.5],'black')
-        for i in range(len(self.laby)-1,0,-1):
-            for j in range(len(self.laby[i])-1):
+        """
+        This function print the Lab with matplotlib
+        """
+        plt.plot([-0.5,self.columns-0.5],[-0.5,-0.5],'black')
+        plt.plot([-0.5,self.columns-0.5],[self.lines-0.5,self.lines-0.5],'black')
+        plt.plot([-0.5,-0.5],[-0.5,self.lines-0.5],'black')
+        plt.plot([self.columns-0.5,self.columns-0.5],[-0.5,self.lines-0.5],'black')
+        
+        for i in range(len(self.laby)-1,-1,-1):
+            for j in range(len(self.laby[i])):
                 dir = self.laby[i][j]
                 if  dir.North == True:
                     plt.plot([j-0.5, j+0.5],[i+0.5, i+0.5], 'blue')
@@ -47,15 +51,17 @@ class labyrinth:
 
 
 Lab = labyrinth(5,5)
-Lab.laby[2][0].South = True
-Lab.laby[3][0].Est = True
-Lab.laby[3][1].North = True
-Lab.laby[4][1].West = True
-Lab.laby[0][4].Est = True
-Lab.laby[2][1].North = True
-Lab.laby[1][1].Est = True
 
-print(Lab.laby)
+Lab.laby[2][0].South = False
+Lab.laby[3][0].Est = False
+Lab.laby[3][1].North = False
+Lab.laby[4][1].West = False
+Lab.laby[0][4].Est = False
+Lab.laby[2][1].North = False
+Lab.laby[1][1].Est = False
+Lab.laby[4][0].North = False
 
+Lab.laby[0][0].Est = False
+Lab.laby[0][1].West = False
 
 Lab.show_laby()
