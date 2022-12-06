@@ -1,4 +1,3 @@
-import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -23,33 +22,28 @@ class labyrinth:
         self.columns = b
         self.laby = [[Case(j,i) for i in range(self.columns)] for j in range(self.lines)]
 
+
+    def show_laby(self):
+        for i in range(len(self.laby)-1,0,-1):
+            for j in range(len(self.laby[i])-1):
+                dir = self.laby[i][j]
+                if  dir.Nord == False:
+                    plt.plot([j, j+1],[i+1, i+1], 'blue')
+                if dir.South == False:
+                    plt.plot([j, j+1], [i, i], 'blue')
+                if dir.Est == False:
+                    plt.plot([j+1, j+1], [i, i+1], 'blue')
+                if dir.West == False:
+                    plt.plot([j, j], [i, i+1], 'blue')
+        plt.show()
+
+
     def __repr__(self):
         return f"labyrinth ({self.lines} lines, {self.columns} columns) [{self.lab.__repr__()}]"
 
 
-def show_laby(lab):
-    for i in range(len(lab.laby)-1,0,-1):
-        for j in range(len(lab.laby[i])-1,0,-1):
-                dir = lab.laby[i][j].cote
-                if  dir.Nord == False:
-                        plt.plot([j, j+1],[i+1, i+1], 'blue')
-                if 'S' not in dir:
-                        plt.plot([j, j+1], [i, i], 'blue')
-                if 'E' not in dir:
-                        plt.plot([j+1, j+1], [i, i+1], 'blue')
-                if 'W' not in dir:
-                        plt.plot([j, j], [i, i+1], 'blue')
-    plt.show()
-
-
-
 Lab = labyrinth(5,5)
-for x in Lab.laby:
-    for y in x:
-        Lab.Nord = True
-        Lab.West = True
-        Lab.Est = True
+Lab.laby[2][0].South = True
 
-show_laby(Lab)
 
-#fonction
+Lab.show_laby()

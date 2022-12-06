@@ -45,6 +45,8 @@ class labyrinthe:
         n=self.lines
         case_traitees=[[False for i in range(p)] for j in range(n)] #permet de marquer True sur les cellules non traitées
         Table_voisins =[[voisin(case_traitees,i,j) for i in range(p)] for j in range(n)]
+
+
         def laby_DFS_rec(c):
 
             k,l=c[0],c[1]
