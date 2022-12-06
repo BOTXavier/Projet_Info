@@ -47,8 +47,9 @@ Lab = labyrinth(5,5)
 for x in Lab.laby:
     for y in x:
         Lab.Nord = True
-        Lab.South = True
         Lab.West = True
         Lab.Est = True
 
 show_laby(Lab)
+
+#fonction
