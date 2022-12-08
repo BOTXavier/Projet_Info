@@ -53,24 +53,52 @@ class labyrinth:
 def readlab(file):
     """
     Read a .txt type with format :
-    lines columns 
-    [N,S,] 
+    lines columns
+    [N,S,E,W,Entrance,Exit] [...]... * columns
+    .
+    .
+    .
+    *lines
+    End 
     """
-    with open file as f:
+    with open(file,'r') as f:
+        l = None
 
+        while l != "End":
+            for line in f:
+                l = line
+                if len(l) ==2:
+                    lines = l[0]
+                    columns = l[1]
+                    lab = labyrinth(lines,columns)
+                    i = lines
+                    j = 0
+                else:
+                    l = l.split()
+                    for x in l:
+                        while i >= 0:
+                            while j <= columns:
+                                case_ij = lab.laby[i][j]
+                                if 'N' not in l:
+                                    case_ij.North = False
+                                elif 'S' not in l:
+                                    case_ij.South = False
+                                elif 'E' not in l:
+                                    case_ij.Est = False
+                                elif 'W' not in l:
+                                    case_ij.West = False
 
-Lab = labyrinth(5,5)
+                                if 'Entrance' in l:
+                                    case_ij.IsEntrence = True
+                                elif 'Exit' in l:
+                                    case_ij.IsExit = True
+                                j +=1
+                            i -=1
+    return lab
 
-Lab.laby[2][0].South = False
-Lab.laby[3][0].Est = False
-Lab.laby[3][1].North = False
-Lab.laby[4][1].West = False
-Lab.laby[0][4].Est = False
-Lab.laby[2][1].North = False
-Lab.laby[1][1].Est = False
-Lab.laby[4][0].North = False
+                   
+f = 'Labyrinth.txt'
+Lab = readlab(f)
 
-Lab.laby[0][0].Est = False
-Lab.laby[0][1].West = False
-
+print(Lab)
 Lab.show_laby()
