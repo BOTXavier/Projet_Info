@@ -67,37 +67,41 @@ def readlab(file):
         while l != "End":
             for line in f:
                 l = line
+
                 if len(l) ==2:
                     lines = l[0]
                     columns = l[1]
                     lab = labyrinth(lines,columns)
-                    i = lines
-                    j = 0
-                else:
-                    l = l.split()
-                    for x in l:
-                        while i >= 0:
-                            while j <= columns:
-                                case_ij = lab.laby[i][j]
-                                if 'N' not in l:
-                                    case_ij.North = False
-                                elif 'S' not in l:
-                                    case_ij.South = False
-                                elif 'E' not in l:
-                                    case_ij.Est = False
-                                elif 'W' not in l:
-                                    case_ij.West = False
+                
+                i = lines
+                j = 0
+                    
+                
+                l = l.split()
+                for x in l:
+                    
+                    while i >= 0:
+                        while j <= columns:
+                            case_ij = lab.laby[i][j]
+                            if 'N' not in l:
+                                case_ij.North = False
+                            elif 'S' not in l:
+                                case_ij.South = False
+                            elif 'E' not in l:
+                                case_ij.Est = False
+                            elif 'W' not in l:
+                                case_ij.West = False
 
-                                if 'Entrance' in l:
-                                    case_ij.IsEntrence = True
-                                elif 'Exit' in l:
-                                    case_ij.IsExit = True
-                                j +=1
-                            i -=1
+                            if 'Entrance' in l:
+                                case_ij.IsEntrence = True
+                            elif 'Exit' in l:
+                                case_ij.IsExit = True
+                            j +=1
+                        i -=1
     return lab
 
                    
-f = 'Labyrinth.txt'
+f = 'C:\Etude\Projet_info\Projet_Info\Projet_info\Labyrinth.txt'
 Lab = readlab(f)
 
 print(Lab)
