@@ -31,7 +31,7 @@ class labyrinth:
         plt.plot([-0.5,self.columns-0.5],[self.lines-0.5,self.lines-0.5],'black')
         plt.plot([-0.5,-0.5],[-0.5,self.lines-0.5],'black')
         plt.plot([self.columns-0.5,self.columns-0.5],[-0.5,self.lines-0.5],'black')
-        
+
         for i in range(len(self.laby)-1,-1,-1):
             for j in range(len(self.laby[i])):
                 dir = self.laby[i][j]
@@ -48,6 +48,15 @@ class labyrinth:
 
     def __repr__(self):
         return f"labyrinth ({self.lines} lines, {self.columns} columns) [{self.laby.__repr__()}]"
+
+
+def readlab(file):
+    """
+    Read a .txt type with format :
+    lines columns 
+    [N,S,] 
+    """
+    with open file as f:
 
 
 Lab = labyrinth(5,5)
