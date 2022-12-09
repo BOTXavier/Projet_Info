@@ -4,4 +4,4 @@
 (NSWE) (WS) (NE) (NSWE) (NSWE)
 (NSWE) (NSWE) (WS) (NE) (NSWE)
 (NSWE) (NSWE) (NSWE) (WS) (NSEO)
-End 
+End
