@@ -62,40 +62,49 @@ def readlab(file):
     End 
     """
     with open(file,'r') as f:
+
         l = f.readline().split()  
         lines = int(l[0])
         columns = int(l[1])
-        lab = labyrinth(lines,columns)                    
+        lab = labyrinth(lines,columns)                  
         i = lines-1
-        j = 0
-        while l != "End":                                        
-            for line in f:
-                l = line  
-                i-=1                 
-                print(l)
-                l = l.split()
-                print(l)
-                     
+            
+
+        for line in f:
+            
+
+
+            l = line         
+            l = l.split()
+            while l != "End":
+                i-=1
+                j = 0
                 while j < columns:
+                    print(j)
                     case_ij = lab.laby[i][j]
                     if 'N' not in l[j]:
                         case_ij.North = False
-                    elif 'S' not in l[j]:
+                    if 'S' not in l[j]:
                         case_ij.South = False
-                    elif 'E' not in l[j]:
+                    if 'E' not in l[j]:
                         case_ij.Est = False
-                    elif 'W' not in l[j]:
+                    if 'W' not in l[j]:
                         case_ij.West = False
 
                     if 'I' in l[j]: #In
                         case_ij.IsEntrence = True
-                    elif 'O' in l[j]: #Out
+                    if 'O' in l[j]: #Out
                         case_ij.IsExit = True
+                    print(case_ij)
                     j +=1
+                
     return lab
+    
+    
 
                    
 f = 'C:\Etude\Projet_info\Projet_Info\Projet_info\Labyrinth.txt'
 Lab = readlab(f)
-print(Lab)
+#print(type(Lab))
+#print(Lab)
 Lab.show_laby()
