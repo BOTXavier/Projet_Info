@@ -1,7 +1,7 @@
 5 5 
-(W N Entrance) (N S W E) (N E S W) (N S W E) (N S E W)
-(S E) (N E) (N S W E) (N S W E) (N S W E)
-(N S W E) (W S) (N E) (N S W E) (N S W E)
-(N S W E) (N S W E) (W S) (N E) (N S W E)
-(N S W E) (N S W E) (N S W E) (W S) (N S E Exit)
+(WNI) (NSWE) (NESW) (NSWE) (NSEW)
+(SE) (NE) (NSWE) (NSWE) (NSWE)
+(NSWE) (WS) (NE) (NSWE) (NSWE)
+(NSWE) (NSWE) (WS) (NE) (NSWE)
+(NSWE) (NSWE) (NSWE) (WS) (NSEO)
 End 

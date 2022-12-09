@@ -54,7 +54,7 @@ def readlab(file):
     """
     Read a .txt type with format :
     lines columns
-    [N,S,E,W,Entrance,Exit] [...]... * columns
+    (NSEWIO) (...)... * columns
     .
     .
     .
@@ -62,47 +62,40 @@ def readlab(file):
     End 
     """
     with open(file,'r') as f:
-        l = None
-
-        while l != "End":
+        l = f.readline().split()  
+        lines = int(l[0])
+        columns = int(l[1])
+        lab = labyrinth(lines,columns)                    
+        i = lines-1
+        j = 0
+        while l != "End":                                        
             for line in f:
-                l = line
-
-                if len(l) ==2:
-                    lines = l[0]
-                    columns = l[1]
-                    lab = labyrinth(lines,columns)
-                
-                i = lines
-                j = 0
-                    
-                
+                l = line  
+                i-=1                 
+                print(l)
                 l = l.split()
-                for x in l:
-                    
-                    while i >= 0:
-                        while j <= columns:
-                            case_ij = lab.laby[i][j]
-                            if 'N' not in l:
-                                case_ij.North = False
-                            elif 'S' not in l:
-                                case_ij.South = False
-                            elif 'E' not in l:
-                                case_ij.Est = False
-                            elif 'W' not in l:
-                                case_ij.West = False
+                print(l)
+                     
+                while j < columns:
+                    case_ij = lab.laby[i][j]
+                    if 'N' not in l[j]:
+                        case_ij.North = False
+                    elif 'S' not in l[j]:
+                        case_ij.South = False
+                    elif 'E' not in l[j]:
+                        case_ij.Est = False
+                    elif 'W' not in l[j]:
+                        case_ij.West = False
 
-                            if 'Entrance' in l:
-                                case_ij.IsEntrence = True
-                            elif 'Exit' in l:
-                                case_ij.IsExit = True
-                            j +=1
-                        i -=1
+                    if 'I' in l[j]: #In
+                        case_ij.IsEntrence = True
+                    elif 'O' in l[j]: #Out
+                        case_ij.IsExit = True
+                    j +=1
     return lab
 
                    
 f = 'C:\Etude\Projet_info\Projet_Info\Projet_info\Labyrinth.txt'
 Lab = readlab(f)
-
 print(Lab)
 Lab.show_laby()
