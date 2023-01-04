@@ -16,7 +16,7 @@ class Case:
     def __repr__(self):
         return "Case ("+("N" if self.cote[0] else "") + ("S" if self.cote[1] else "") + ("E" if self.cote[2] else "") + ("W" if self.cote[3] else "") + ")"
 
-class labyrinth:
+class Labyrinth:
     def __init__(self, a: int, b: int):
         self.lines = a
         self.columns = b
@@ -66,14 +66,11 @@ def readlab(file):
         l = f.readline().split()  
         lines = int(l[0])
         columns = int(l[1])
-        lab = labyrinth(lines,columns)                  
+        lab = Labyrinth(lines,columns)                  
         i = lines-1
             
 
         for line in f:
-            
-
-
             l = line         
             l = l.split()
             while l != "End":
