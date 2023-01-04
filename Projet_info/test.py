@@ -16,11 +16,13 @@ for i in range(len(laby2)):
         for j in range(len(laby2[i])):
                 dir = laby2[i][j]
                 if 'N' not in dir:
-                        plt.plot([j, j+1],[i+1, i+1], 'blue')
+                        plt.plot([j-0.5, j+0.5],[i+0.5, i+0.5], 'blue')
                 if 'S' not in dir:
-                        plt.plot([j, j+1], [i, i], 'blue')
+                        plt.plot([j-0.5, j+0.5], [i-0.5, i-0.5], 'blue')
                 if 'E' not in dir:
-                        plt.plot([j+1, j+1], [i, i+1], 'blue')
+                        plt.plot([j+0.5, j+0.5], [i-0.5, i+0.5], 'blue')
                 if 'W' not in dir:
-                        plt.plot([j, j], [i, i+1], 'blue')
+                        plt.plot([j-0.5, j-0.5], [i-0.5, i+0.5], 'blue')
+
+
 plt.show()
