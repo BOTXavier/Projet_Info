@@ -1,6 +1,5 @@
 class Node:
 
-
     def __init__(self, id):
         self.adj = {}
         self.id = id
@@ -25,7 +24,6 @@ class Node:
 
     def __lt__(self, other):
         return self.dist < other.dist
-
 
 
 class WGraph:

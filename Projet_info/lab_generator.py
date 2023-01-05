@@ -66,9 +66,9 @@ def readlab(file):
         l = f.readline().split()  
         lines = int(l[0])
         columns = int(l[1])
-        lab = Labyrinth(lines,columns)                  
+        lab = Labyrinth(lines,columns)
         i = lines-1
-            
+    
 
         for line in f:
             l = line         
@@ -77,7 +77,6 @@ def readlab(file):
                 i-=1
                 j = 0
                 while j < columns:
-                    print(j)
                     case_ij = lab.laby[i][j]
                     if 'N' not in l[j]:
                         case_ij.North = False
@@ -92,7 +91,7 @@ def readlab(file):
                         case_ij.IsEntrence = True
                     if 'O' in l[j]: #Out
                         case_ij.IsExit = True
-                    print(case_ij)
+
                     j +=1
                 
     return lab
@@ -100,7 +99,7 @@ def readlab(file):
     
 
                    
-f = 'C:\Etude\Projet_info\Projet_Info\Projet_info\Labyrinth.txt'
+f = "C:\Etude\Info\Projet_info\Projet_Info\Projet_info\Labyrinth.txt"
 Lab = readlab(f)
 #print(type(Lab))
 #print(Lab)
