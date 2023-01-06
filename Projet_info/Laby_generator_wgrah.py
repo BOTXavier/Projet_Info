@@ -4,12 +4,9 @@ from math import sqrt
 
 
 
-def Laby_fisrt_form(n): # en entrée un carré parfait n tel que 1<=n<=961 (pour un soucis ultérieur de représentation )
+def Laby_first_form(n): # en entrée un carré parfait n tel que 1<=n<=961 (pour un soucis ultérieur de représentation )
 
-    '''
-     permet de générer n*n noeuds et et de les reliés chacun avec leur voisin tel une matrice,
-     les noeuds sont numérotés de 1 à n*n, L'obejectif était de construire d'abord un graphe connexe et "ultra" cyclique *
-     '''
+    
    
     G = wgraph.WGraph() # on pouvait ici utliser le module graph(sans les poids) car pour l'instant ce sont les chemins qui nous interessent
     for i in range(1,n+1):
@@ -24,7 +21,7 @@ def Laby_fisrt_form(n): # en entrée un carré parfait n tel que 1<=n<=961 (pour
     return G 
   
 
-def laby_dict(G): # en entrée un Graphe fourni par Laby_first_form() 
+def laby_dict(G,t): # t=1 --> random graph ; t=0 --> graph fixe
     '''
     permet de constuire le labyrinthe en parcourant tous les noeuds avec l'algo de base du dfs , 
     fonction retournant le graphe sous forme dictionnaire qui indique quel noeud est maintenant branché (ou lié) à quel noeud,
@@ -44,15 +41,10 @@ def laby_dict(G): # en entrée un Graphe fourni par Laby_first_form()
         else : 
             deja_visite[sommet]=True
             visite["total_sommet_actuelle"]+=1
-            L=[]
-            for v in G.neighbours(sommet):
-                voisin = v[0]
-                L.append(voisin)
-            random.shuffle(L)    # cette astuce du shuffle est le coeur de l'algo (cela permet de choisir les voisins aléatoirement), sinon dfs allait betement suivre un chemin tout droit 
-            for voisin in L:
-                if not deja_visite[voisin]:
-                        Gf[voisin] = sommet
-                        dfs_rec(voisin,Gf)
+            for v in G.voisin(sommet,t):
+                if not deja_visite[v]:
+                        Gf[v] = sommet
+                        dfs_rec(v,Gf)
         return Gf
     return dfs_rec(depart,Gf)
 
@@ -79,8 +71,8 @@ def Laby_Graph(D):
 
 if __name__=="__main__":
 
-    G = Laby_fisrt_form(25)
-    r = laby_dict(G)
+    G = Laby_first_form(25)
+    r = laby_dict(G,t=1)
     LG=Laby_Graph(r)
 
     print(G)
