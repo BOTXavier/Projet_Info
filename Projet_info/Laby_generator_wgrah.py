@@ -83,8 +83,8 @@ if __name__=="__main__":
     r = laby_dict(G)
     LG=Laby_Graph(r)
 
-    print(G)
-    print(r)
+    print(G, "\n")
+    print(r, "\n")
     print(LG)
 
 
