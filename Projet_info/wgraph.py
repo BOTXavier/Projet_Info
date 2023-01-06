@@ -1,4 +1,5 @@
 import random
+import heapq
 
 class WGraph(object):
     
@@ -41,3 +42,20 @@ class WGraph(object):
     def neighbours(self, u):
         """Return the list of neighbours (v, weight) of node u in the graph"""
         return self.adj[u]
+    
+    def voisin(self,u,t):
+        """return the list of neighbours v (type int) of node u in the graph """ 
+        L=[]
+        for voisin in self.neighbours(u):
+            L.append(voisin[0])
+        if t==0 :
+            heapq.heapify(L)
+            return L
+        elif t==1:
+            random.shuffle(L)
+            return L
+
+
+
+
+        

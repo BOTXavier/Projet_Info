@@ -1,90 +1,80 @@
 import wgraph 
 import random 
-from math import sqrt 
 
+def Laby_first_form(n): # en entrée 1<=n<=31 
+    """ return un graph de n*n noeuds """
 
-
-def Laby_fisrt_form(n): # en entrée un carré parfait n tel que 1<=n<=961 (pour un soucis ultérieur de représentation )
-
-    '''
-     permet de générer n*n noeuds et et de les reliés chacun avec leur voisin tel une matrice,
-     les noeuds sont numérotés de 1 à n*n, L'obejectif était de construire d'abord un graphe connexe et "ultra" cyclique *
-     '''
-   
-    G = wgraph.WGraph() # on pouvait ici utliser le module graph(sans les poids) car pour l'instant ce sont les chemins qui nous interessent
-    for i in range(1,n+1):
+    G = wgraph.WGraph() 
+    for i in range(1,(n**2)+1):
         G.add_node(i)
-    n_rac = int(sqrt(n))
-    for i in range(1,n_rac+1):
-       for j in range(0,(n_rac-1)**2,n_rac):
-            G.add_edge(i+j,i+j+n_rac,random.randint(1,5))   
-    for i in range(1,n_rac):
-       for j in range(0,n,n_rac):
-            G.add_edge(i+j,i+j+1,random.randint(1,5)) 
+    for i in range(1,n+1):
+       for j in range(0,(n-1)**2,n):
+            G.add_edge(i+j,i+j+n,1)   
+    for i in range(1,n):
+       for j in range(0,n**2,n):
+            G.add_edge(i+j,i+j+1,1) 
     return G 
   
 
-def laby_dict(G): # en entrée un Graphe fourni par Laby_first_form() 
-    '''
-    permet de constuire le labyrinthe en parcourant tous les noeuds avec l'algo de base du dfs , 
-    fonction retournant le graphe sous forme dictionnaire qui indique quel noeud est maintenant branché (ou lié) à quel noeud,
-    En gros , on construit les chemins possibles !
-    '''
-
+def laby_dict(n,t): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe 
+    """return un dictionnaire permettant de connaitre le chemin suivi par le dfs. (Laby à n*n noeuds)"""
+    G = Laby_first_form(n)
     nodes = G.nodes()
     Total_sommet = len(nodes)
     deja_visite = {noeud:False for noeud in nodes}
-    visite = {"total_sommet_actuelle":0 }
-    Gf = {}    # c'est le dictionnaire décrit dans le commentaire précédent
+    visite = {"total_sommet_visitée":0 }
+    Gf = {}
     depart = nodes[0]
-    
     def dfs_rec(sommet,Gf={}):
-        if visite["total_sommet_actuelle"] == Total_sommet:
+        if visite["total_sommet_visitée"] == Total_sommet:
             return Gf
         else : 
             deja_visite[sommet]=True
-            visite["total_sommet_actuelle"]+=1
-            L=[]
-            for v in G.neighbours(sommet):
-                voisin = v[0]
-                L.append(voisin)
-            random.shuffle(L)    # cette astuce du shuffle est le coeur de l'algo (cela permet de choisir les voisins aléatoirement), sinon dfs allait betement suivre un chemin tout droit 
-            for voisin in L:
-                if not deja_visite[voisin]:
-                        Gf[voisin] = sommet
-                        dfs_rec(voisin,Gf)
+            visite["total_sommet_visitée"]+=1
+            for v in G.voisin(sommet,t):
+                if not deja_visite[v]:
+                        Gf[v] = sommet
+                        dfs_rec(v,Gf)
         return Gf
     return dfs_rec(depart,Gf)
 
 
-def Laby_Graph(D):   
-    '''  
-    permet de convertir le laby en dictionnaire (fourni par la fonction Laby_dict ) 
-    en Laby sous forme de Graphe (Final form!)
+def Laby_Graph(n,t,w):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> graph fixe ; w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
+    '''  return le graph associé au labyrinthe, possédant n*n noeuds 
     '''
+    D = laby_dict(n,t)
     G = wgraph.WGraph()
-    L = D.keys()
-    for i in range(1,len(L)+1):
+    l = len(D)
+    for i in range(1,l+1):
         G.add_node(i)
-    for elt in D:
-        G.add_edge(elt,D[elt],random.randint(1,4))
-    return G
+    if w==1:
+        for elt in D:
+             G.add_edge(elt,D[elt],1)
+        return G
+    else:
+        for elt in D:
+             G.add_edge(elt,D[elt],random.randint(1,4))
+        return G
+    
+#def Laby_wgraph(n,t):
+
+
+
+
+
+
 
 
 
 
    
-
-   
-
 if __name__=="__main__":
 
-    G = Laby_fisrt_form(25)
-    r = laby_dict(G)
-    LG=Laby_Graph(r)
+    r = laby_dict(5,t=0)
+    LG=Laby_Graph(5,t=0,w=1)
 
-    print(G, "\n")
-    print(r, "\n")
+    
+    print(r)
     print(LG)
 
 
