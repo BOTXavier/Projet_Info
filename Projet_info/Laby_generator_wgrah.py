@@ -67,15 +67,6 @@ def Laby_Graph(n,t,w):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> graph fixe ; w
 
 
 
-   
-if __name__=="__main__":
-
-    r = laby_dict(5,t=0)
-    LG=Laby_Graph(5,t=0,w=1)
-
-    
-    print(r)
-    print(LG)
 
 
 
