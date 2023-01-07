@@ -46,10 +46,12 @@ class WGraph(object):
     def weight(self,u,v):
         """return weight u-v"""
         w=0
-        for v in self.adj[u]:
-            if v==v[0]: 
-                w=v[1]
+        for a in self.adj[u]:
+            if v==a[0]: 
+                w=a[1]
+        
         return w
+        
 
 
     def voisin(self,u,t):
