@@ -55,8 +55,7 @@ def Laby_Graph(n,t,w):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> graph fixe ; w
         for elt in D:
              G.add_edge(elt,D[elt],random.randint(1,4))
         return G
-    
-#def Laby_wgraph(n,t):
+
 
 
 
