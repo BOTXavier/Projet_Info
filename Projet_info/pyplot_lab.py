@@ -38,9 +38,9 @@ def plot_laby(G,t, lab=False):
         if lab: plt.plot((x,a), (y,b), 'r')
     plt.show()
 
-G = lg.Laby_Graph(10,0,1) 
+G = lg.Laby_Graph(18,0,1) 
 
 
-t = lg.laby_dict(10,1)
+t = lg.laby_dict(18,1)
 
 plot_laby(G,t,lab=False)
