@@ -3,7 +3,9 @@ from matplotlib import pyplot as plt
 import wgraph as g
 
 def plot_laby(G,t, lab=False):
-    
+    """
+    Prend en argument un graph G de dictionnaire g, et l'affiche de manière visuelle
+    """
     f = G.size()
     n = int((f)**(0.5))
     N = [[i+n*j  for i in range(1,1+n)] for j in range(n) ]
@@ -38,9 +40,7 @@ def plot_laby(G,t, lab=False):
         if lab: plt.plot((x,a), (y,b), 'r')
     plt.show()
 
-G = lg.Laby_Graph(18,0,1) 
-
-
-t = lg.laby_dict(18,1)
-
-plot_laby(G,t,lab=False)
+def plot(n,t,w):
+    G = lg.Laby_Graph(n,t,w) 
+    g = lg.laby_dict(n,t)
+    plot_laby(G,g,lab=False)
