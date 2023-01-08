@@ -51,12 +51,6 @@ def dijkstra_classic(G,start,end):
     A = [start] + A
     return A,d[end]
 
-G=lg.Laby_Graph(5,0,1)
-#print(G)
-
-r=dijkstra_classic(G,1,887)
-print(f'le chemin le plus court est {r}')
-
 
 
 

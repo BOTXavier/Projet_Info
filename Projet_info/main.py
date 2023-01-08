@@ -4,7 +4,11 @@ import pyplot_lab
 
 
 def main():
-    pyplot_lab.plot(18,0,1)
+    
+    pyplot_lab.plot(18,1,1)
+    
+    G=lg.Laby_Graph(5,1,1)
+    r=dj.dijkstra_classic(G,1,24)
+    print(f'le chemin le plus court est {r}')
 
-if __name__ == "__main__":
-    main()
+main()
