@@ -43,6 +43,17 @@ class WGraph(object):
         """Return the list of neighbours (v, weight) of node u in the graph"""
         return self.adj[u]
     
+    def weight(self,u,v):
+        """return weight u-v"""
+        w=0
+        for a in self.adj[u]:
+            if v==a[0]: 
+                w=a[1]
+        
+        return w
+        
+
+
     def voisin(self,u,t):
         """return the list of neighbours v (type int) of node u in the graph """ 
         L=[]
