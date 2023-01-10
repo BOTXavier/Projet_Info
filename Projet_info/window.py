@@ -22,7 +22,7 @@ class spindemo(QWidget):
       self.l1 = QLabel(str(title))
       layout.addWidget(self.l1)
       self.sp = QSpinBox()
-      self.sp.setRange(2,42)
+      self.sp.setRange(2,45)
 		
       layout.addWidget(self.sp)
       self.sp.valueChanged.connect(self.valuechange)
