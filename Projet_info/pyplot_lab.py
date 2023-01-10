@@ -4,7 +4,7 @@ import wgraph as g
 
 def plot_laby(G,t, lab=False):
     """
-    Prend en argument un graph G de dictionnaire g, et l'affiche de manière visuelle
+    Prend en argument un graph G de dictionnaire t, et l'affiche de manière visuelle
     """
     f = G.size()
     n = int((f)**(0.5))
