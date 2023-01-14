@@ -44,3 +44,4 @@ def plot(n,t,w):
     G = lg.Laby_Graph(n,t,w) 
     g = lg.laby_dict(n,t)
     plot_laby(G,g,lab=False)
+    

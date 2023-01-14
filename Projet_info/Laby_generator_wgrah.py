@@ -16,7 +16,7 @@ def Laby_first_form(n): # en entrée 1<=n<=31
     return G 
   
 
-def laby_dict(n,t): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe 
+def laby_dict(n,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe 
     """return un dictionnaire permettant de connaitre le chemin suivi par le dfs. (Laby à n*n noeuds)"""
     G = Laby_first_form(n)
     nodes = G.nodes()
@@ -39,7 +39,7 @@ def laby_dict(n,t): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe
     return dfs_rec(depart,Gf)
 
 
-def Laby_Graph(n,t,w):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> graph fixe ; w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
+def Laby_Graph(n,t=1,w=1):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> graph fixe ; w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
     '''  return le graph associé au labyrinthe, possédant n*n noeuds 
     '''
     D = laby_dict(n,t)
