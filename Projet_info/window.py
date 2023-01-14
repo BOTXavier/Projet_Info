@@ -1,6 +1,10 @@
 import pyplot_lab
+import Laby_generator_wgrah as lg
+import dijkstra as dj
+import matplotlib.pyplot as plt 
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QSpinBox
+
 
 class Fenetre(QWidget):
     def __init__(self,title):
@@ -35,28 +39,60 @@ class spindemo(QWidget):
 
 
 
-def appui_bouton1():
+def appui_bouton_gen_laby():
+    global n, G
     n = value.sp.value()
-    pyplot_lab.plot(n,1,1)
+    G = lg.Laby_Graph(n,1,1) 
+    g = lg.laby_dict(n,1) 
+    pyplot_lab.plot_laby(G,g,lab=False)    
+    fen1.closeWindow()
+    fen2.show()
+    return (G,g,n)
     
+    
+def appui_bouton_dijsktra():
+    global n, G
+    r= dj.dijkstra_classic(G,1,n**2)
+    print("Le chemin de sortie est :")
+    print(r)
 
+
+def appui_bouton_home():
+    fen2.closeWindow()
+    plt.close()
+    fen1.show()
     
 app = QApplication.instance() 
 if not app:
     app = QApplication(sys.argv)
 
-fen = Fenetre("Home")
+
+#parametrage fenetre home 
+fen1 = Fenetre("Home")
 value = spindemo("côté du labyrinthe")
-
-bouton1 = QPushButton("générer un labyrinthe")
-bouton1.clicked.connect(appui_bouton1)
-
-
+bouton_gen_laby = QPushButton("générer un labyrinthe")
+bouton_gen_laby.clicked.connect(appui_bouton_gen_laby)
 layout = QHBoxLayout()
-layout.addWidget(bouton1)
 layout.addWidget(value)
+layout.addWidget(bouton_gen_laby)
 
-fen.setLayout(layout)
-fen.show()
+fen1.setLayout(layout)
+fen1.show()
+
+#parametrage fenetre laby
+fen2 = Fenetre("laby")
+bouton_dijsktra = QPushButton("Dijsktra")
+bouton_dijsktra.clicked.connect(appui_bouton_dijsktra)
+bouton_home = QPushButton("Home")
+bouton_home.clicked.connect(appui_bouton_home)
+layout2 = QVBoxLayout()
+layout3 = QHBoxLayout()
+layout3.addWidget(bouton_dijsktra)
+layout3.addWidget(bouton_home)
+
+
+#layout3.addLayout(layout2)
+fen2.setLayout(layout3)
+
 
 app.exec_()
