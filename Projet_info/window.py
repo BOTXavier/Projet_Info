@@ -40,21 +40,26 @@ class spindemo(QWidget):
 
 
 def appui_bouton_gen_laby():
-    global n, G
+    global n, G, g
     n = value.sp.value()
     G = lg.Laby_Graph(n,1,1) 
     g = lg.laby_dict(n,1) 
-    pyplot_lab.plot_laby(G,g,lab=False)    
+    pyplot_lab.plot_laby(G,g,lab=False)   
     fen1.closeWindow()
     fen2.show()
-    return (G,g,n)
+    plt.show() 
     
     
 def appui_bouton_dijsktra():
-    global n, G
+    global n, G, g
+    plt.close()
     r= dj.dijkstra_classic(G,1,n**2)
-    print("Le chemin de sortie est :")
-    print(r)
+    pyplot_lab.plot_laby(G,g,lab=False)
+    pyplot_lab.plot_soluce(r,n)
+    plt.title("Solution par Dijkstra")
+    print(f'le chemin le plus court est {r}')
+    plt.show()
+    
 
 
 def appui_bouton_home():

@@ -38,10 +38,40 @@ def plot_laby(G,t, lab=False):
         elif b == y + 1: plt.plot((x-d,x+d),(y+d,y+d),'w')
         elif y == b + 1: plt.plot((x-d,x+d),(y-d,y-d),'w')
         if lab: plt.plot((x,a), (y,b), 'r')
-    plt.show()
+    
 
 def plot(n,t,w):
     G = lg.Laby_Graph(n,t,w) 
     g = lg.laby_dict(n,t)
     plot_laby(G,g,lab=False)
+    
+
+
+def plot_soluce(soluce,n): # prend la solution et la taille du côté du laby
+    #On transforme les "numéros" en cases (i,j)
+    l = []
+    i = 0
+    j = 0
+    for elt in soluce[0]:
+        q = elt//n
+        r = elt%n
+        if r ==0 : 
+            i = n-1
+            j = q-1
+        else : 
+            j = q
+            i = r-1
+        l.append((i,j))
+
+    #On dessine maintenant le lien entre les cases qui sont censées se suivre
+    indice = 0
+    while indice != soluce[1] : 
+        x1 = l[indice][0]
+        x2 = l[indice+1][0]
+        y1 = l[indice][1]
+        y2 = l[indice+1][1]
+        plt.plot([y1,y2],[x1,x2],"r")
+        indice += 1
+
+
     
