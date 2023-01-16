@@ -39,22 +39,22 @@ def laby_dict(n,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe
     return dfs_rec(depart,Gf)
 
 
-def Laby_Graph(n,t=1,w=1):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> graph fixe ; w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
+def Laby_Graph(n,g_dict,t=1,w=1):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> graph fixe ; w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
     '''  return le graph associé au labyrinthe, possédant n*n noeuds 
     '''
-    D = laby_dict(n,t)
-    G = wgraph.WGraph()
+    D = g_dict
+    G_graph = wgraph.WGraph()
     l = len(D)
     for i in range(1,l+1):
-        G.add_node(i)
+        G_graph.add_node(i)
     if w==1:
         for elt in D:
-             G.add_edge(elt,D[elt],1)
-        return G
+             G_graph.add_edge(elt,D[elt],1)
+        return G_graph
     else:
         for elt in D:
-             G.add_edge(elt,D[elt],random.randint(1,4))
-        return G
+             G_graph.add_edge(elt,D[elt],random.randint(1,4))
+        return G_graph
 
 #ATTENTION ne modifie pas laby dict, juste le graph
 #Le Laby généré précédemment est parfait(=0 cycle), algo choisit un sommet aléatoirement, teste si il lui reste des sommets disponibles puis ajoute le sommet
