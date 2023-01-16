@@ -44,7 +44,7 @@ def appui_bouton_gen_laby():
     n = value.sp.value()
 	
     nbCycles=3 #Valentin faire un bouton pour nbre de cycles?
-    g,G=Laby_DictLaby_Graph(n,1,1,nbCycles) #(n,t,w,nbCycles)
+    g,G=lg.Laby_DictLaby_Graph(n,1,1,nbCycles) #(n,t,w,nbCycles)
 	
     pyplot_lab.plot_laby(G,g,lab=False)   
     fen1.closeWindow()
