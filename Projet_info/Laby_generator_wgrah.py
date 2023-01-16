@@ -1,6 +1,12 @@
 import wgraph 
 import random 
 
+def Laby_DictLaby_Graph(n,t,w,nbCycles):    #main, fait l'algo
+    labyDict=laby_dict(n,t)
+    labyGraph=Laby_Graph(n,labyDict,1,1)
+    Add_Cycles(n,labyGraph,labyDict,nbCycles)
+    return labyDict,labyGraph
+
 def Laby_first_form(n): # en entrée 1<=n<=31 
     """ return un graph de n*n noeuds """
 
@@ -36,7 +42,11 @@ def laby_dict(n,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe
                         Gf[v] = sommet
                         dfs_rec(v,Gf)
         return Gf
-    return dfs_rec(depart,Gf)
+    Dico= dfs_rec(depart,Gf)
+    for item in Dico :                #transforme les valeurs du dico en tableau
+        Dico[item]=[Dico[item]]
+    Dico[4].append(3) 
+    return Dico
 
 
 def Laby_Graph(n,g_dict,t=1,w=1):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> graph fixe ; w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
@@ -49,29 +59,34 @@ def Laby_Graph(n,g_dict,t=1,w=1):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> gra
         G_graph.add_node(i)
     if w==1:
         for elt in D:
-             G_graph.add_edge(elt,D[elt],1)
+             G_graph.add_edge(elt,D[elt][0],1)#ne prends que le premier element de la liste ici, a changer peut etre
         return G_graph
     else:
         for elt in D:
-             G_graph.add_edge(elt,D[elt],random.randint(1,4))
+             G_graph.add_edge(elt,D[elt][0],random.randint(1,4))
         return G_graph
 
 #ATTENTION ne modifie pas laby dict, juste le graph
 #Le Laby généré précédemment est parfait(=0 cycle), algo choisit un sommet aléatoirement, teste si il lui reste des sommets disponibles puis ajoute le sommet
 #si carré 1,2,3  4,5,6  7,8,9 alors les voisins geographiques de 2 sont 1,3,5
-def Add_Cycles(n,laby,nbCycles):
+def Add_Cycles(n,labyGraph,labyDict,nbCycles):
     compt,listeVoisinsGraph=0,[]
     while compt<nbCycles:                                           #répète l'opération m fois pour m cycles
         nbrandom=random.randint(1,n**2)                             #choisit aléatoirement le sommet sur lequel on veut ajouter une arète
         condi=False
-        if len(laby.neighbours(nbrandom))< CoinBordOuCentreLaby(n,nbrandom): #regarde si le sommet à moins de voisinsgraph que de voisins possibles(2 pour coin...)
-            for item in laby.neighbours(nbrandom):                  #crée la liste des voisins du sommet
+        if len(labyGraph.neighbours(nbrandom))< CoinBordOuCentreLaby(n,nbrandom): #regarde si le sommet à moins de voisinsgraph que de voisins possibles(2 pour coin...)
+            for item in labyGraph.neighbours(nbrandom):                  #crée la liste des voisins du sommet
                 listeVoisinsGraph.append(item[0])
             voisinGeog=voisinGeo(nbrandom,n)
             while condi==False:
                 random.shuffle(voisinGeog) 
                 if voisinGeog[0] not in listeVoisinsGraph :         #crée un voisin graph si le voisin géographique n'est pas déja dans la liste des voisins graph du sommet
-                    laby.add_edge(nbrandom,voisinGeog[0],1)
+                    labyGraph.add_edge(nbrandom,voisinGeog[0],1)
+                    try:
+                        labyDict[nbrandom].append(voisinGeog[0])
+                    except:
+                        labyDict[voisinGeog[0]].append(nbrandom)
+
                     condi=True
             compt+=1
         listeVoisinsGraph=[]
