@@ -1,0 +1,9 @@
+def convert_txt_To_Dict(filename):
+    fichier=open(str(filename), "r")
+    return fichier.read
+    
+
+def convert_Dict_To_txt(labyDict):#crée le fichier si il n'existe pla, le modifie sinon
+    fichier=open("temp_Dict_To_txt","w") #peut necessiter de changer le chemin
+    fichier.write(str(labyDict))
+    fichier.close
