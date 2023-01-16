@@ -42,8 +42,10 @@ class spindemo(QWidget):
 def appui_bouton_gen_laby():
     global n, G, g
     n = value.sp.value()
-    G = lg.Laby_Graph(n,1,1) 
-    g = lg.laby_dict(n,1) 
+	
+    nbCycles=3 #Valentin faire un bouton pour nbre de cycles?
+    g,G=Laby_DictLaby_Graph(n,1,1,nbCycles) #(n,t,w,nbCycles)
+	
     pyplot_lab.plot_laby(G,g,lab=False)   
     fen1.closeWindow()
     fen2.show()
