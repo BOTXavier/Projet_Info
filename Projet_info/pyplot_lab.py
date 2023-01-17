@@ -17,28 +17,28 @@ def plot_laby(G,t, lab=False):
         plt.plot((-d, n - d), (y - d, y - d), 'b')
     for elt in t:
         h = t[elt]
-        i = h//n 
-        i1 = elt//n
-     
-        try:
-           j = N[i].index(h)
-        except: 
-            j = N[i-1].index(h)
-            i=i-1
-        try: 
-            j1 = N[i1].index(elt)
-        except:
-            j1 = N[i1-1].index(elt)
-            i1 = i1-1
+        for h1 in h:
+            i = h1//n 
+            i1 = elt//n
+            try:
+                j = N[i].index(h1)
+            except: 
+                j = N[i-1].index(h1)
+                i=i-1
+            try: 
+                j1 = N[i1].index(elt)
+            except:
+                j1 = N[i1-1].index(elt)
+                i1 = i1-1
 
-        (x,y) = (i1,j1)
-        (a,b) = (i,j)
-        if a == x + 1: plt.plot((x+d,x+d),(y-d,y+d),'w')
-        elif a == x - 1: plt.plot((x-d,x-d),(y-d,y+d),'w')
-        elif b == y + 1: plt.plot((x-d,x+d),(y+d,y+d),'w')
-        elif y == b + 1: plt.plot((x-d,x+d),(y-d,y-d),'w')
-        if lab: plt.plot((x,a), (y,b), 'r')
-    
+            (x,y) = (i1,j1)
+            (a,b) = (i,j)
+            if a == x + 1: plt.plot((x+d,x+d),(y-d,y+d),'w')
+            elif a == x - 1: plt.plot((x-d,x-d),(y-d,y+d),'w')
+            elif b == y + 1: plt.plot((x-d,x+d),(y+d,y+d),'w')
+            elif y == b + 1: plt.plot((x-d,x+d),(y-d,y-d),'w')
+            if lab: plt.plot((x,a), (y,b), 'r')
+
 
 def plot(n,t,w):
     G = lg.Laby_Graph(n,t,w) 
