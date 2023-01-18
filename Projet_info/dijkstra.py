@@ -49,7 +49,7 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
         A +=[s]
         s = predecesseur[s]
     A += [start]
-    return A,d[end]
+    return A,d[end],visite
 
 
 

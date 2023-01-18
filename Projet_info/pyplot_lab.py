@@ -1,5 +1,6 @@
 import Laby_generator_wgrah as lg
 from matplotlib import pyplot as plt 
+from matplotlib.patches import Rectangle
 import wgraph as g
 
 def plot_laby(G : g.WGraph,t : dict, lab=False):
@@ -76,4 +77,34 @@ def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str):
     plot_laby(graph, dico,lab=False)
     plot_soluce(soluce,cote)
     plt.title(str(title))
+
+def coloriage(visite, n):
+    """
+    colorie les cases visitées 
+    """
+    #On transforme les "numéros" en cases (i,j)
+    l = []
+    i = 0
+    j = 0
+    for elt in visite:
+        q = elt//n
+        r = elt%n
+        if r ==0 :  #Si le reste est nul, le noeud est " en haut"
+            i = n-1
+            j = q-1
+        else : 
+            j = q
+            i = r-1
+        l.append((i,j))
+    fig = plt.figure()
+    for elt in l:
+        ax = fig.add_subplot()
+        w = 0.5
+        h = 0.5
+        rect = Rectangle(elt, w, h, color='gray')
+        ax.add_patch(rect)
+        plt.axis('equal')
+        plt.axis('off')
+    plt.show()
+
     
