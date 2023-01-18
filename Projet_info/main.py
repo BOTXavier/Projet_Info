@@ -10,7 +10,7 @@ def main():
     
     nbCycles=8
     #ATTENTION a utiliser pour test seulement, car crée un nouveau laby
-    g,G=lg.Laby_DictLaby_Graph(n,1,1,nbCycles) #(n,t,w,nbCycles) 
+    g,G=lg.Laby_DictLaby_Graph(n,1,nbCycles, 1) #(n,t,nbCycles,w) 
     
     pyplot_lab.plot_laby(G,g,lab=False) 
     r = dj.dijkstra_classic(G,1,n**2)
