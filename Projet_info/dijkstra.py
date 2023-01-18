@@ -1,5 +1,7 @@
 import Laby_generator_wgrah as lg
 import prioqueue as pq
+import time 
+
 INF = 10000
 
 def initialisation(G,start: int):
@@ -30,6 +32,7 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     """
     return le chemin le plus court (liste de noeuds successif) et la longueur de ce chemin
     """
+    time_begin = time.time()
     d = initialisation(G,start)
     L = G.nodes()
     Lq = [(d[u],u) for u in L]
@@ -48,7 +51,9 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
         A +=[s]
         s = predecesseur[s]
     A += [start]
-    return A,d[end]
+    time_end = time.time()
+    execution_time = time_end - time_begin 
+    return A,d[end], execution_time
 
 
 
@@ -59,6 +64,7 @@ def dijkstra_bidirect(G,start : int, end : int):#G un graphe
     """
     return le chemin le plus court (liste de noeuds successif) et la longueur de ce chemin
     """
+    time_begin = time.time()
     best_dist = 100000 # initialiser à l'infini 
     d1 = initialisation(G,start)
     d2 = initialisation(G,end)
@@ -109,8 +115,9 @@ def dijkstra_bidirect(G,start : int, end : int):#G un graphe
         s2 = predecesseur2[s2]
     B = B + [end]
     print(A,B)
-    
-    return A+B, best_dist
+    time_end = time.time()
+    execution_time = time_end - time_begin 
+    return A+B, best_dist, execution_time
 
 
                         
