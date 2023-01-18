@@ -67,6 +67,11 @@ class WGraph(object):
             return L
 
 
-
+class laby(object):
+    def __init__(self,G,g,n,m):
+        self.Graph = G
+        self.dico = g
+        self.cote = n
+        self.cycle = m
 
         

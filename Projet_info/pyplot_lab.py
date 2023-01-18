@@ -40,13 +40,6 @@ def plot_laby(G,t, lab=False):
             if lab: plt.plot((x,a), (y,b), 'r')
 
 
-def plot(n,t,w):
-    G = lg.Laby_Graph(n,t,w) 
-    g = lg.laby_dict(n,t)
-    plot_laby(G,g,lab=False)
-    
-
-
 def plot_soluce(soluce,n): # prend la solution et la taille du côté du laby
     #On transforme les "numéros" en cases (i,j)
     l = []
@@ -73,5 +66,8 @@ def plot_soluce(soluce,n): # prend la solution et la taille du côté du laby
         plt.plot([y1,y2],[x1,x2],"r")
         indice += 1
 
-
+def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str):
+    plot_laby(graph, dico,lab=False)
+    plot_soluce(soluce,cote)
+    plt.title(str(title))
     

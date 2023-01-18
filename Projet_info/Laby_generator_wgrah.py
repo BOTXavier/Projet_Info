@@ -1,11 +1,6 @@
 import wgraph 
 import random 
 
-def Laby_DictLaby_Graph(n,t,w,nbCycles):    #main, fait l'algo
-    labyDict=laby_dict(n,t)
-    labyGraph=Laby_Graph(n,labyDict,1,1)
-    Add_Cycles(n,labyGraph,labyDict,nbCycles)
-    return labyDict,labyGraph
 
 def Laby_first_form(n): # en entrée 1<=n<=31 
     """ return un graph de n*n noeuds """
@@ -49,9 +44,11 @@ def laby_dict(n,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe
     return Dico
 
 
-def Laby_Graph(n,g_dict,t=1,w=1):  # 1<=n<=31 ; t=1 -> random graph ; t=0 -> graph fixe ; w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
-    '''  return le graph associé au labyrinthe, possédant n*n noeuds 
+def Laby_Graph(g_dict : dict,t=1 ,w=1): #t=1 -> random graph ; t=0 -> graph fixe ; w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
+    ''' 
+     return le graph associé au labyrinthe, possédant n*n noeuds 
     '''
+
     D = g_dict
     G_graph = wgraph.WGraph()
     l = len(D)
@@ -112,21 +109,11 @@ def CoinBordOuCentreLaby(n,nbrandom):#prends un peu de mémoire mais gagne du te
     return 4
 
 
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
+def Laby_DictLaby_Graph(n,t,w,nbCycles):  
+    """
+    renvoi un graph et son dictionnaire formant le labyrinthe
+    """
+    labyDict=laby_dict(n,t)
+    labyGraph=Laby_Graph(labyDict,1,1)
+    Add_Cycles(n,labyGraph,labyDict,nbCycles)
+    return labyDict,labyGraph
