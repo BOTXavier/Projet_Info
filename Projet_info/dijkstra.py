@@ -39,9 +39,10 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     Q = pq.PrioQueue(Lq)
     
     predecesseur ={}
-
+    visite = []
     while not Q.is_empty():
         u = find_min(Q)
+        visite.append(u)
         for v in G.neighbours(u):
             maj_dist(u,v[0],predecesseur,d,G)
             Q.decrease_prio(v[0],d[v[0]])
@@ -53,7 +54,7 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     A += [start]
     time_end = time.time()
     execution_time = time_end - time_begin 
-    return A,d[end], execution_time
+    return A,d[end], execution_time,visite
 
 
 
