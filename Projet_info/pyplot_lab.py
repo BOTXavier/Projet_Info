@@ -2,7 +2,7 @@ import Laby_generator_wgrah as lg
 from matplotlib import pyplot as plt 
 import wgraph as g
 
-def plot_laby(G,t, lab=False):
+def plot_laby(G : g.WGraph,t : dict, lab=False):
     """
     Prend en argument un graph G de dictionnaire t, et l'affiche de manière visuelle
     """
@@ -40,7 +40,10 @@ def plot_laby(G,t, lab=False):
             if lab: plt.plot((x,a), (y,b), 'r')
 
 
-def plot_soluce(soluce,n): # prend la solution et la taille du côté du laby
+def plot_soluce(soluce : dict,n : int): 
+    """
+     prend la solution et la taille du côté du laby, et le trace sur un plot
+     """
     #On transforme les "numéros" en cases (i,j)
     l = []
     i = 0
@@ -48,7 +51,7 @@ def plot_soluce(soluce,n): # prend la solution et la taille du côté du laby
     for elt in soluce[0]:
         q = elt//n
         r = elt%n
-        if r ==0 : 
+        if r ==0 :  #Si le reste est nul, le noeud est " en haut"
             i = n-1
             j = q-1
         else : 
@@ -67,6 +70,9 @@ def plot_soluce(soluce,n): # prend la solution et la taille du côté du laby
         indice += 1
 
 def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str):
+    """
+    Plot le labyrinthe et sa solution, avec le titre de la méthode utilisée 
+    """
     plot_laby(graph, dico,lab=False)
     plot_soluce(soluce,cote)
     plt.title(str(title))

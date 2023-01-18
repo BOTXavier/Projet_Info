@@ -2,8 +2,10 @@ import wgraph
 import random 
 
 
-def Laby_first_form(n): # en entrée 1<=n<=31 
-    """ return un graph de n*n noeuds """
+def Laby_first_form(n : int): # en entrée 1<=n<=31 
+    """ 
+    return un graph de n*n noeuds 
+    """
 
     G = wgraph.WGraph() 
     for i in range(1,(n**2)+1):
@@ -17,8 +19,10 @@ def Laby_first_form(n): # en entrée 1<=n<=31
     return G 
   
 
-def laby_dict(n,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe 
-    """return un dictionnaire permettant de connaitre le chemin suivi par le dfs. (Laby à n*n noeuds)"""
+def laby_dict(n : int,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe 
+    """
+    return un dictionnaire permettant de connaitre le chemin suivi par le dfs. (Laby à n*n noeuds)
+    """
     G = Laby_first_form(n)
     nodes = G.nodes()
     Total_sommet = len(nodes)
@@ -44,7 +48,7 @@ def laby_dict(n,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe
     return Dico
 
 
-def Laby_Graph(g_dict : dict,t=1 ,w=1): #t=1 -> random graph ; t=0 -> graph fixe ; w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
+def Laby_Graph(g_dict : dict, w=1): # w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
     ''' 
      return le graph associé au labyrinthe, possédant n*n noeuds 
     '''
@@ -88,7 +92,10 @@ def Add_Cycles(n,labyGraph,labyDict,nbCycles):
             compt+=1
         listeVoisinsGraph=[]
 
-def voisinGeo(nbrandom,n):#calcule les 2-4 différents voisins géographiques possibles
+def voisinGeo(nbrandom,n):
+    """
+    calcule les 2 à 4 différents voisins géographiques possibles
+    """
     if (nbrandom==1) : return [2,n+1]                               #4 coins
     if (nbrandom==n) : return [n-1,2*n]
     if (nbrandom==n**2-n+1) : return [n**2-2*n+1,n**2-n+2]
@@ -109,11 +116,11 @@ def CoinBordOuCentreLaby(n,nbrandom):#prends un peu de mémoire mais gagne du te
     return 4
 
 
-def Laby_DictLaby_Graph(n,t,w,nbCycles):  
+def Laby_DictLaby_Graph(n : int,t: int, nbCycles : int, w = 1 ):  
     """
     renvoi un graph et son dictionnaire formant le labyrinthe
     """
     labyDict=laby_dict(n,t)
-    labyGraph=Laby_Graph(labyDict,1,1)
+    labyGraph=Laby_Graph(labyDict,w)
     Add_Cycles(n,labyGraph,labyDict,nbCycles)
     return labyDict,labyGraph

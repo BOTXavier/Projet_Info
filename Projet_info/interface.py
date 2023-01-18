@@ -4,7 +4,7 @@ import wgraph
 import dijkstra as dj
 import matplotlib.pyplot as plt 
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QSpinBox, QGridLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QSpinBox, QGridLayout
 
 maze = wgraph.laby(None,None,None,None)
 
@@ -41,7 +41,7 @@ class spindemo(QWidget):
 def appui_bouton_gen_laby():
     maze.cote = cote_laby.sp.value()
     maze.cycle = nb_cycle.sp.value()
-    maze.dico, maze.Graph = lg.Laby_DictLaby_Graph(maze.cote,1,1,maze.cycle) #(n,t,w,nbCycles)
+    maze.dico, maze.Graph = lg.Laby_DictLaby_Graph(maze.cote,1,maze.cycle,1) #(n,t,nbCycles,w)
     pyplot_lab.plot_laby(maze.Graph,maze.dico,lab=False)   
     fen1.closeWindow()
     fen2.show()

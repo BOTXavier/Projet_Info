@@ -1,12 +1,12 @@
 import heapq
 
 class PrioQueue(object):
-    def __init__(self, l):
+    def __init__(self, list : list):
         """
-        Créer une file à priorité à partir d'une liste l :
-        la liste l doit contenir les couples (priorité, element)
+        Créer une file à priorité à partir d'une liste list :
+        la liste list doit contenir les couples (priorité, element)
         """
-        self.queue = [[prio, i, elt] for (i, (prio, elt)) in enumerate(l)]
+        self.queue = [[prio, i, elt] for (i, (prio, elt)) in enumerate(list)]
         heapq.heapify(self.queue)
 
 

@@ -1,24 +1,22 @@
 import Laby_generator_wgrah as lg
 import prioqueue as pq
-
-
-inf=10000
+INF = 10000
 
 def initialisation(G,start: int):
     L = G.nodes()
     d = {}
     for u in L:
-        d[u]=inf
+        d[u]= INF
     d[start]=0
     
     return d
 
-def find_min(Q):
+def find_min(Q : pq.PrioQueue):
     a=Q
     b = a.pop()
     return b[1]
 
-def maj_dist(s1,s2,predecesseur,d,G):
+def maj_dist(s1:int, s2:int, predecesseur : dict, d :dict , G):
     a = G.weight(s1,s2)
     
     if d[s2] > d[s1] + a :
@@ -28,9 +26,10 @@ def maj_dist(s1,s2,predecesseur,d,G):
     return d,predecesseur
 
 
-def dijkstra_classic(G,start : int , end: int):
-    """return le chemin le plus court (liste de noeuds successif) et la longueur de ce chemin"""
-    
+def dijkstra_classic(G,start : int , end: int):  #G un graphe
+    """
+    return le chemin le plus court (liste de noeuds successif) et la longueur de ce chemin
+    """
     d = initialisation(G,start)
     L = G.nodes()
     Lq = [(d[u],u) for u in L]
@@ -46,9 +45,9 @@ def dijkstra_classic(G,start : int , end: int):
     A = []
     s = end
     while s!=start : 
-        A =[s]+A
+        A +=[s]
         s = predecesseur[s]
-    A = [start] + A
+    A += [start]
     return A,d[end]
 
 
@@ -56,8 +55,10 @@ def dijkstra_classic(G,start : int , end: int):
 
   
 
-def dijkstra_bidirect(G,start,end):
-    """return le chemin le plus court (liste de noeuds successif) et la longueur de ce chemin"""
+def dijkstra_bidirect(G,start : int, end : int):#G un graphe
+    """
+    return le chemin le plus court (liste de noeuds successif) et la longueur de ce chemin
+    """
     best_dist = 100000 # initialiser à l'infini 
     d1 = initialisation(G,start)
     d2 = initialisation(G,end)
