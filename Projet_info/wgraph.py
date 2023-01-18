@@ -75,10 +75,12 @@ class WGraph(object):
     
 
 class laby(object):
-    def __init__(self,G : WGraph,g : dict,n : int ,m : int):
+    def __init__(self,G : WGraph,g : dict,n : int ,m : int, entrance : int, exit : int):
         self.Graph = G
         self.dico = g
         self.cote = n
         self.cycle = m
+        self.entrance = entrance
+        self.exit = exit
 
         

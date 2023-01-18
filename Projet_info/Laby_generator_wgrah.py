@@ -92,7 +92,7 @@ def Add_Cycles(n,labyGraph,labyDict,nbCycles):
             compt+=1
         listeVoisinsGraph=[]
 
-def voisinGeo(nbrandom,n):
+def voisinGeo(nbrandom:int,n:int):
     """
     calcule les 2 à 4 différents voisins géographiques possibles
     """
@@ -110,7 +110,7 @@ def voisinGeo(nbrandom,n):
 
 
         
-def CoinBordOuCentreLaby(n,nbrandom):#prends un peu de mémoire mais gagne du temps
+def CoinBordOuCentreLaby(n:int,nbrandom:int):#prends un peu de mémoire mais gagne du temps
     if (nbrandom==1 or nbrandom==n or nbrandom==n**2-n+1 or nbrandom==n**2): return 2
     if (nbrandom%n==1 or nbrandom%n==0 or 1<nbrandom<n or n**2-n+1<nbrandom<n**2): return 3
     return 4
@@ -124,3 +124,15 @@ def Laby_DictLaby_Graph(n : int,t: int, nbCycles : int, w = 1 ):
     labyGraph=Laby_Graph(labyDict,w)
     Add_Cycles(n,labyGraph,labyDict,nbCycles)
     return labyDict,labyGraph
+
+
+def entrance_exit(cote :int):
+    n = cote ** 2
+    list1 = [i for i in range(1,cote+1)]
+    list3 = [ i for i in range(n - cote+1,n+1)]
+    list = [(1 + i * cote) for i in range(1,cote-1)]
+    list2 = [(i * cote) for i in range(2,cote)]   
+    l = list + list2 + list3 + list1
+    l.sort()
+    random.shuffle(l)
+    return l[0],l[1]

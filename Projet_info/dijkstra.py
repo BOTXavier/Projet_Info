@@ -54,7 +54,7 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     A += [start]
     time_end = time.time()
     execution_time = time_end - time_begin 
-    return A,d[end], execution_time,visite
+    return A,d[end],visite, execution_time
 
 
 
@@ -82,7 +82,6 @@ def dijkstra_bidirect(G,start : int, end : int):#G un graphe
     S2 = []
     while not (Q1.is_empty() or Q2.is_empty()):
         u1, u2 = find_min(Q1) , find_min(Q2)
-        
         S1.append(u1)
         S2.append(u2)
         for v in G.neighbours(u1):
@@ -105,16 +104,16 @@ def dijkstra_bidirect(G,start : int, end : int):#G un graphe
     B = []
     s = u1
     while s!=start : 
-        A =[s]+A
+        A +=[s]
         s = predecesseur1[s]
-    A = [start] + A
+    A += [start]
     
     B = []
     s2 = u2 
     while s2!=end : 
-        B = B + [s2]
+        B += [s2]
         s2 = predecesseur2[s2]
-    B = B + [end]
+    B += [end]
     print(A,B)
     time_end = time.time()
     execution_time = time_end - time_begin 
