@@ -118,7 +118,7 @@ def CoinBordOuCentreLaby(n,nbrandom):#prends un peu de mémoire mais gagne du te
 
 def Laby_DictLaby_Graph(n : int,t: int, nbCycles : int, w = 1 ):  
     """
-    renvoi un graph et son dictionnaire formant le labyrinthe
+    renvoie un graph et son dictionnaire formant le labyrinthe
     """
     labyDict=laby_dict(n,t)
     labyGraph=Laby_Graph(labyDict,w)

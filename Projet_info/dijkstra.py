@@ -36,9 +36,10 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     Q = pq.PrioQueue(Lq)
     
     predecesseur ={}
-
+    visite = []
     while not Q.is_empty():
         u = find_min(Q)
+        visite.append(u)
         for v in G.neighbours(u):
             maj_dist(u,v[0],predecesseur,d,G)
             Q.decrease_prio(v[0],d[v[0]])

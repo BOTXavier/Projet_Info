@@ -72,7 +72,7 @@ class WGraph(object):
         elif t==1:
             random.shuffle(L)
             return L
-
+    
 
 class laby(object):
     def __init__(self,G : WGraph,g : dict,n : int ,m : int):
