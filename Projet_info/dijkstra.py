@@ -4,7 +4,7 @@ import prioqueue as pq
 
 inf=10000
 
-def initialisation(G,start):
+def initialisation(G,start: int):
     L = G.nodes()
     d = {}
     for u in L:
@@ -28,7 +28,7 @@ def maj_dist(s1,s2,predecesseur,d,G):
     return d,predecesseur
 
 
-def dijkstra_classic(G,start,end):
+def dijkstra_classic(G,start : int , end: int):
     """return le chemin le plus court (liste de noeuds successif) et la longueur de ce chemin"""
     
     d = initialisation(G,start)
