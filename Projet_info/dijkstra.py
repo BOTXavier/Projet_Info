@@ -72,44 +72,59 @@ def dijkstra_bidirect(G,start : int, end : int):#G un graphe
     
     L = G.nodes()
     Lq = [(d1[u],u) for u in L]
-    
     Lq2= [(d2[u],u) for u in L]
     Q1 = pq.PrioQueue(Lq)
     Q2 = pq.PrioQueue(Lq2)
-    predecesseur1 ={}
-    predecesseur2 ={}
-    S1 = []
-    S2 = []
+    predecesseur1,predecesseur2  = {},{}
+    S1 ,S2 = [] ,[]
+    h1,h2= [best_dist,start],[best_dist, end]
+    h=0
     while not (Q1.is_empty() or Q2.is_empty()):
         u1, u2 = find_min(Q1) , find_min(Q2)
         S1.append(u1)
         S2.append(u2)
+        
         for v in G.neighbours(u1):
+            
             maj_dist(u1,v[0],predecesseur1,d1,G)
+            
             Q1.decrease_prio(v[0],d1[v[0]])
-            if v[0] in S1 and d1[u1] + G.weight(u1,v[0]) + d2[v[0]] < best_dist:
-                best_dist = d1[u1] + G.weight(u1,v[0]) + d2[v[0]] 
-                print(best_dist)
+            if v[0] in S2 and d1[u1] + G.weight(u1,v[0]) + d2[v[0]] < best_dist:
+                best_dist = d1[u1] + G.weight(u1,v[0]) + d2[v[0]]
+         
+              
         
         for v in G.neighbours(u2):
             maj_dist(u2,v[0],predecesseur2,d2,G)
             Q2.decrease_prio(v[0],d2[v[0]])
-            if v[0] in S2 and d2[u2] + G.weight(u2,v[0]) + d1[v[0]] < best_dist:
-                best_dist = d2[u2] + G.weight(u2,v[0]) + d1[v[0]] 
-                print(best_dist)
-        
-        if d1[u1]+d2[u2] >= best_dist : break
+            
+            if v[0] in S1 and d2[u2] + G.weight(u2,v[0]) + d1[v[0]] < best_dist:
+                best_dist = d2[u2] + G.weight(u2,v[0]) + d1[v[0]]
+
+        if u1 in S2:
+            h1[0],h1[1] = best_dist,u1
+            print(h1)
+        elif u2 in S1:
+            h2[0],h2[1] = best_dist,u2
+            print(h2)
+            
+        elif d1[u1]+d2[u2] >= best_dist :
+          break
     
+    if h1[0]>h2[0]: h=h2[1]
+    else : h=h1[0]
+    print(h,predecesseur1,predecesseur2)
     A = []
     B = []
-    s = u1
+    s = h
     while s!=start : 
-        A +=[s]
-        s = predecesseur1[s]
-    A += [start]
+        A =[s]+A
+        s = predecesseur1[h]
+        
+    A = [start]+A
     
     B = []
-    s2 = u2 
+    s2 = predecesseur2[h]
     while s2!=end : 
         B += [s2]
         s2 = predecesseur2[s2]
