@@ -72,6 +72,7 @@ def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int):
     rect2 = Rectangle((y2,x2),1,1,color="orange")
     ax.add_patch(rect1)
     ax.add_patch(rect2)
+    
 
 
 def plot_soluce(soluce : dict,n : int): 
@@ -89,7 +90,6 @@ def plot_soluce(soluce : dict,n : int):
         plt.plot([y1,y2],[x1,x2],"r")
         indice += 1
 
-
 def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str, entrance:int, exit:int):
     """
     Plot le labyrinthe et sa solution, avec le titre de la méthode utilisée 
@@ -99,18 +99,18 @@ def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str, ent
     plt.title(str(title))
 
 
-def coloriage(visite, n):
+def coloriage(fig, visite, n): #prends une plt.figure en paramètre, la liste des cases visitées(encore sous la forme de chiffre) et la taille du laby
     """
     colorie les cases visitées 
     """
-    l = [noeud_en_case(elt,n) for elt in visite]
-    fig = plt.figure()
-    for elt in l:
+    ax = fig.add_subplot()
+    for elt in visite:
+        x, y = noeud_en_case(elt, n)
+        x1, y1 = x- 0.5, y - 0.5
         ax = fig.add_subplot()
-        w = 0.5
-        h = 0.5
-        rect = Rectangle(elt, w, h, color='gray')
+        rect = Rectangle((x1, y1), 1, 1, color='gray')
         ax.add_patch(rect)
+
 
 
     
