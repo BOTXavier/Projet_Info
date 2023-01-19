@@ -10,5 +10,5 @@ plt_lab.plot_laby(laby, dico)
 plt_lab.plot_soluce(sol,10)
 #plt.show()
 
-visite = sol[-1]
-plt_lab.coloriage(visite, 10)
+
+coord_visite = plt_lab.graph_to_plot(sol, 10)
