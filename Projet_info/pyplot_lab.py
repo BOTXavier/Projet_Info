@@ -2,7 +2,27 @@ import Laby_generator_wgrah as lg
 from matplotlib import pyplot as plt 
 from matplotlib.patches import Rectangle
 import wgraph as g
+from matplotlib.patches import Rectangle
 
+
+def noeud_en_case(noeud : int, cote : int):
+    """
+    Converti un noeud en case de coordonnées (i,j)
+    """
+    i = 0
+    j = 0
+    q = noeud//cote
+    r = noeud%cote
+    if r ==0 :  #Si le reste est nul, le noeud est " en haut"
+        i = cote-1
+        j = q-1
+    else : 
+        j = q
+        i = r-1
+    return (i,j)
+
+
+<<<<<<< HEAD
 
 def graph_to_plot(soluce, n):
     """"
@@ -25,9 +45,14 @@ def graph_to_plot(soluce, n):
 
 
 def plot_laby(G : g.WGraph,t : dict, lab=False):
+=======
+def plot_laby(G : g.WGraph,t : dict, entrance : int, exit: int, lab=False):
+>>>>>>> 7fa6e7a91026b98f2a4b608e5df89292b6d50f3a
     """
     Prend en argument un graph G de dictionnaire t, et l'affiche de manière visuelle
     """
+    fig = plt.figure()
+    ax = fig.add_subplot()
     f = G.size()
     n = int((f)**(0.5))
     N = [[i+n*j  for i in range(1,1+n)] for j in range(n) ]
@@ -60,14 +85,33 @@ def plot_laby(G : g.WGraph,t : dict, lab=False):
             elif b == y + 1: plt.plot((x-d,x+d),(y+d,y+d),'w')
             elif y == b + 1: plt.plot((x-d,x+d),(y-d,y-d),'w')
             if lab: plt.plot((x,a), (y,b), 'r')
+    #colorie l'entrée et la sortie
+    x1,y1 = noeud_en_case(entrance,n)
+    x1 -= 0.5
+    y1-= 0.5
+    x2, y2 = noeud_en_case(exit,n)
+    x2 -= 0.5
+    y2-= 0.5
+    rect1 = Rectangle((y1,x1),1,1,color="green")
+    rect2 = Rectangle((y2,x2),1,1,color="orange")
+    ax.add_patch(rect1)
+    ax.add_patch(rect2)
 
 
 def plot_soluce(soluce : dict,n : int): 
     """
      prend la solution et la taille du côté du laby, et le trace sur un plot
      """
+<<<<<<< HEAD
     l = graph_to_plot(soluce,n)
     #On dessine le lien entre les cases qui sont censées se suivre
+=======
+    #On transforme les "numéros" en cases (i,j)
+    l = []
+    for elt in soluce[0]:
+        l.append(noeud_en_case(elt,n))
+    #On dessine maintenant le lien entre les cases qui sont censées se suivre
+>>>>>>> 7fa6e7a91026b98f2a4b608e5df89292b6d50f3a
     indice = 0
     while indice != soluce[1] : 
         x1 = l[indice][0]
@@ -77,16 +121,20 @@ def plot_soluce(soluce : dict,n : int):
         plt.plot([y1,y2],[x1,x2],"r")
         indice += 1
 
-def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str):
+
+def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str, entrance:int, exit:int):
     """
     Plot le labyrinthe et sa solution, avec le titre de la méthode utilisée 
     """
-    plot_laby(graph, dico,lab=False)
+    plot_laby(graph, dico, entrance, exit, lab=False)
     plot_soluce(soluce,cote)
     plt.title(str(title))
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7fa6e7a91026b98f2a4b608e5df89292b6d50f3a
 def coloriage(visite, n):
     """
     colorie les cases visitées 
