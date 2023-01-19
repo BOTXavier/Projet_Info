@@ -23,7 +23,7 @@ def noeud_en_case(noeud : int, cote : int):
 
 
 
-def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int,  lab=False):
+def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int):
     """
     Prend en argument un graph G de dictionnaire t, et l'affiche de manière visuelle
     """
@@ -60,7 +60,7 @@ def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int,  lab=False):
             elif a == x - 1: plt.plot((x-d,x-d),(y-d,y+d),'w')
             elif b == y + 1: plt.plot((x-d,x+d),(y+d,y+d),'w')
             elif y == b + 1: plt.plot((x-d,x+d),(y-d,y-d),'w')
-            if lab: plt.plot((x,a), (y,b), 'r')
+            
     #colorie l'entrée et la sortie
     x1,y1 = noeud_en_case(entrance,n)
     x1 -= 0.5
