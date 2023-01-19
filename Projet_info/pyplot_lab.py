@@ -22,32 +22,8 @@ def noeud_en_case(noeud : int, cote : int):
     return (i,j)
 
 
-<<<<<<< HEAD
 
-def graph_to_plot(soluce, n):
-    """"
-    transforme les "numéros" des noeuds du graphe en une coordonnée (i,j)
-    """
-    l = []
-    i = 0
-    j = 0
-    for elt in soluce[0]:
-        q = elt//n
-        r = elt%n
-        if r ==0 :  #Si le reste est nul, le noeud est " en haut"
-            i = n-1
-            j = q-1
-        else : 
-            j = q
-            i = r-1
-        l.append((i,j))
-    return l 
-
-
-def plot_laby(G : g.WGraph,t : dict, lab=False):
-=======
-def plot_laby(G : g.WGraph,t : dict, entrance : int, exit: int, lab=False):
->>>>>>> 7fa6e7a91026b98f2a4b608e5df89292b6d50f3a
+def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int,  lab=False):
     """
     Prend en argument un graph G de dictionnaire t, et l'affiche de manière visuelle
     """
@@ -102,16 +78,8 @@ def plot_soluce(soluce : dict,n : int):
     """
      prend la solution et la taille du côté du laby, et le trace sur un plot
      """
-<<<<<<< HEAD
-    l = graph_to_plot(soluce,n)
+    l = [noeud_en_case(elt,n) for elt in soluce[0]]
     #On dessine le lien entre les cases qui sont censées se suivre
-=======
-    #On transforme les "numéros" en cases (i,j)
-    l = []
-    for elt in soluce[0]:
-        l.append(noeud_en_case(elt,n))
-    #On dessine maintenant le lien entre les cases qui sont censées se suivre
->>>>>>> 7fa6e7a91026b98f2a4b608e5df89292b6d50f3a
     indice = 0
     while indice != soluce[1] : 
         x1 = l[indice][0]
@@ -131,15 +99,11 @@ def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str, ent
     plt.title(str(title))
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7fa6e7a91026b98f2a4b608e5df89292b6d50f3a
 def coloriage(visite, n):
     """
     colorie les cases visitées 
     """
-    l = graph_to_plot(visite, n)
+    l = [noeud_en_case(elt,n) for elt in visite]
     fig = plt.figure()
     for elt in l:
         ax = fig.add_subplot()
