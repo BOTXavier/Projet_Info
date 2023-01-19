@@ -104,7 +104,6 @@ def coloriage(visite, n):
     colorie les cases visitées 
     """
     l = [noeud_en_case(elt,n) for elt in visite]
-    fig = plt.figure()
     for elt in l:
         ax = fig.add_subplot()
         w = 0.5
