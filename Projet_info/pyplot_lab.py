@@ -94,7 +94,7 @@ def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str, ent
     """
     Plot le labyrinthe et sa solution, avec le titre de la méthode utilisée 
     """
-    plot_laby(graph, dico, entrance, exit, lab=False)
+    plot_laby(graph, dico, entrance, exit)
     plot_soluce(soluce,cote)
     plt.title(str(title))
 

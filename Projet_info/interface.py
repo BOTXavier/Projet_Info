@@ -43,7 +43,7 @@ def appui_bouton_gen_laby():
     maze.cycle = nb_cycle.sp.value()
     maze.dico, maze.Graph = lg.Laby_DictLaby_Graph(maze.cote,1,maze.cycle,1) #(n,t,nbCycles,w)
     maze.entrance, maze.exit = lg.entrance_exit(maze.cote)
-    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, lab=False)   
+    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit)   
     fen1.closeWindow()
     fen2.show()
     plt.show() 
