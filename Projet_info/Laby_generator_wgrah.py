@@ -4,7 +4,7 @@ import random
 
 def Laby_first_form(n : int): # en entrée 1<=n<=31 
     """ 
-    return un graph de n*n noeuds 
+    return un graph de n*n noeuds // tous les noeuds sont reliés à leurs plus proches voisins 
     """
 
     G = wgraph.WGraph() 
@@ -22,6 +22,7 @@ def Laby_first_form(n : int): # en entrée 1<=n<=31
 def laby_dict(n : int,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe 
     """
     return un dictionnaire permettant de connaitre le chemin suivi par le dfs. (Laby à n*n noeuds)
+    Applique un algo de dfs pour "détruire" des murs 
     """
     G = Laby_first_form(n)
     nodes = G.nodes()
@@ -121,7 +122,7 @@ def Laby_DictLaby_Graph(n : int,t: int, nbCycles : int, w = 1 ):
     """
     labyDict=laby_dict(n,t)
     labyGraph=Laby_Graph(labyDict,w)
-    Add_Cycles(n,labyGraph,labyDict,nbCycles)
+    Add_Cycles(n,labyGraph,labyDict,nbCycles) #modifie laby_dict et laby_graph pour ajouter des cycles 
     return labyDict,labyGraph
 
 
