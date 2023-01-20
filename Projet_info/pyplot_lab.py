@@ -23,10 +23,19 @@ def noeud_en_case(noeud : int, cote : int):
 
 
 
-def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,visite : list, afficher_soluce:bool, afficher_cases:bool, title:str,distance:int):
+def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,visite : list, visite2, afficher_soluce:bool, afficher_cases:bool, title:str,distance:int):
     """
     Prend en argument un graph G de dictionnaire t, et l'affiche de manière visuelle
     """
+    def colorier_cases(visite,color):
+        """on colorie les cases visitées par l'algorithme
+        """
+        for elt in visite:
+            x, y = noeud_en_case(elt, n)
+            x1, y1 = x- 0.5, y - 0.5
+            rect = Rectangle((y1, x1), 1, 1, color=str(color))
+            ax.add_patch(rect)
+
     fig = plt.figure()
     ax = fig.add_subplot()
     f = G.size()
@@ -60,7 +69,27 @@ def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,
             elif a == x - 1: plt.plot((x-d,x-d),(y-d,y+d),'w')
             elif b == y + 1: plt.plot((x-d,x+d),(y+d,y+d),'w')
             elif y == b + 1: plt.plot((x-d,x+d),(y-d,y-d),'w')
-            
+              
+
+    if afficher_cases:
+        colorier_cases(visite,"cyan")
+        if visite2 :
+            colorier_cases(visite2,"yellow")
+
+        
+    if afficher_soluce :
+        l = [noeud_en_case(elt,n) for elt in soluce]
+        #On dessine le lien entre les cases qui sont censées se suivre
+        indice = 0
+        while indice != distance : 
+            x1 = l[indice][0]
+            x2 = l[indice+1][0]
+            y1 = l[indice][1]
+            y2 = l[indice+1][1]
+            plt.plot([y1,y2],[x1,x2],"r")
+            indice += 1
+
+
     #colorie l'entrée et la sortie
     x1,y1 = noeud_en_case(entrance,n)
     x1 -= 0.5
@@ -73,30 +102,6 @@ def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,
     ax.add_patch(rect1)
     ax.add_patch(rect2)
     
-
-    if afficher_cases:
-        #on colorie les cases visitées par l'algorithme
-        for elt in visite:
-            x, y = noeud_en_case(elt, n)
-            x1, y1 = x- 0.5, y - 0.5
-            rect = Rectangle((x1, y1), 1, 1, color='gray')
-            ax.add_patch(rect)
-
-
-    if afficher_soluce :
-        l = [noeud_en_case(elt,n) for elt in soluce]
-        print(l)
-        #On dessine le lien entre les cases qui sont censées se suivre
-        indice = 0
-        print(len(l))
-        while indice != distance : 
-            x1 = l[indice][0]
-            print(indice)
-            x2 = l[indice+1][0]
-            y1 = l[indice][1]
-            y2 = l[indice+1][1]
-            plt.plot([y1,y2],[x1,x2],"r")
-            indice += 1
     plt.title(str(title))
     plt.show()
 

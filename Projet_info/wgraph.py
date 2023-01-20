@@ -84,5 +84,7 @@ class laby(object):
         self.cycle = m
         self.entrance = entrance
         self.exit = exit
+        self.solution = None
+        self.bidij = False
 
         
