@@ -7,14 +7,18 @@ import comparaison as cp
 
 def main():
 
-    n = 5
-    sys.setrecursionlimit(n**2)
-    dico, graph = lg.Laby_DictLaby_Graph(n,1,n,1)
-    entrance, exit = lg.entrance_exit(n)
-    sol_classique = dj.dijkstra_classic(graph,entrance,exit)
+    n = 95
+    sys.setrecursionlimit(20000)
 
-    cp.recup_donnees("C:\Etude\Info\Projet_Info\Projet_Info-1\Projet_info\donnees_dij.txt",sol_classique[2],len(sol_classique[-1]))
-    cp.recup_donnees("donnees_bidij.txt",sol_classique[2],len(sol_classique[-1]+sol_classique[-2]))
+    # dico, graph = lg.Laby_DictLaby_Graph(n,1,n,1)
+    # entrance, exit = lg.entrance_exit(n)
+    # sol_classique = dj.dijkstra_classic(graph,entrance,exit)
+    # sol_bidij = dj.dijkstra_bidirect(graph,entrance,exit)
+
+    # cp.recup_donnees("donnees_dij.txt.txt",sol_classique[2],len(sol_classique[-1]),n,n)
+    # cp.recup_donnees("donnees_bidij.txt.txt",sol_bidij[2],len(sol_bidij[3]+sol_bidij[4]),n,n)
+    cp.plot_comparaison("donnees_dij.txt.txt","donnees_bidij.txt.txt")
+    plt.show()
 
 
 main()

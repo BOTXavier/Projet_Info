@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt 
-DONNEES_DIJ = 'C:\ENAC\\1A\python\labyrinthe\Projet_Info-1\Projet_Info-1\Projet_info\donnees_dij.txt' 
+#☺DONNEES_DIJ = 'C:\ENAC\\1A\python\labyrinthe\Projet_Info-1\Projet_Info-1\Projet_info\donnees_dij.txt' 
 
 
 def recup_donnees(file, t, nbr_case_visite, nbr_cycles, n):
@@ -20,22 +20,28 @@ def read_file(file):
     return t, nbr_case_visite, nbr_cycle, n
 
 
-def plot_comparaison(file):
-    t, nbr_case_visite, nbr_cycle, n = read_file(file)
+def plot_comparaison(file1,file2):
+    t, nbr_case_visite, nbr_cycle, n = read_file(file1)
+    t2, nbr_case_visite2, nbr_cycle2, n2 = read_file(file2)
+
     plt.subplot(121)
-    plt.plot(n, t)
+    plt.scatter(n, t,color='r',label='classique')
+    plt.scatter(n,t2,color='b',label='bidirectionnel')
     plt.title('Temps d\'éxécution en fonction de la taille du laby')
     plt.ylabel('Temps d\'éxécution en s')
     plt.xlabel('taille du laby')
+    plt.legend()
 
     plt.subplot(122)
-    plt.plot(n, nbr_case_visite)
+    plt.scatter(n, nbr_case_visite,color='r',label='classique')
+    plt.scatter(n,nbr_case_visite2,color='b',label='bidirectionnel')
     plt.title('Nombre de cases visitées en fonction de la taille du laby')
     plt.ylabel('Nombre de cases visitées')
     plt.xlabel('taille du laby')
+    plt.legend()
     
 
 
-t, nbr_case_visite, nbr_cycle, n = read_file(DONNEES_DIJ)
-plot_comparaison(DONNEES_DIJ)
-plt.show()
+# t, nbr_case_visite, nbr_cycle, n = read_file(DONNEES_DIJ)
+# plot_comparaison(DONNEES_DIJ)
+# plt.show()

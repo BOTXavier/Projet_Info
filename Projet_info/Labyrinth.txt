@@ -1,7 +1,0 @@
-5 5 
-(WNI) (NSWE) (NESW) (NSWE) (NSEW)
-(SE) (NE) (NSWE) (NSWE) (NSWE)
-(NSWE) (WS) (NE) (NSWE) (NSWE)
-(NSWE) (NSWE) (WS) (NE) (NSWE)
-(NSWE) (NSWE) (NSWE) (WS) (NSEO)
-End
