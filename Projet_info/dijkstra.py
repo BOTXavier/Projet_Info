@@ -5,11 +5,11 @@ import time
 
 def initialisation(Graph,start: int):
     '''initialise les poids de chaque noeud à l'infini, sauf le noeuds start qui sera de poids nul '''
-    INF = 10000
+    inf = 10000
     L = Graph.nodes()
     dist = {}
     for u in L:
-        dist[u]= INF
+        dist[u]= inf
     dist[start]=0
     return dist
 
@@ -28,7 +28,7 @@ def maj_dist(s1:int, s2:int, predecesseur : dict, dist :dict , Graph):
 
 def delete_double(L):
     '''permet de supprimer les doublons de noeuds présents dans le chemin (sous forme de liste) du
-    dijsktra biddirectionnelle''' 
+    dijsktra bidirectionnelle''' 
     new_list = [] 
     for i in L : 
         if i not in new_list: 

@@ -40,27 +40,28 @@ def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,
     ax = fig.add_subplot()
     f = G.size()
     n = int((f)**(0.5))
-    N = [[i+n*j  for i in range(1,1+n)] for j in range(n) ]
+    nodes_in_matrix = [[i+n*j  for i in range(1,1+n)] for j in range(n) ]
     d = 0.5
     plt.axis([-1, n, -1, n])
     for x in range(n + 1):
         plt.plot((x - d, x - d), (-d, n- d), 'm')
     for y in range(n + 1):
         plt.plot((-d, n - d), (y - d, y - d), 'm')
+    # il faut maintenant convertir mes noeuds (type int) en coordonnées cartésiens :
     for elt in t:
         h = t[elt]
         for h1 in h:
             i = h1//n 
             i1 = elt//n
             try:
-                j = N[i].index(h1)
+                j = nodes_in_matrix[i].index(h1)
             except: 
-                j = N[i-1].index(h1)
+                j = nodes_in_matrix[i-1].index(h1)
                 i=i-1
             try: 
-                j1 = N[i1].index(elt)
+                j1 = nodes_in_matrix[i1].index(elt)
             except:
-                j1 = N[i1-1].index(elt)
+                j1 = nodes_in_matrix[i1-1].index(elt)
                 i1 = i1-1
 
             (x,y) = (i1,j1)
