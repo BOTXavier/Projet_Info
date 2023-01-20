@@ -103,27 +103,6 @@ def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,
 
     
 
-# def plot_soluce(soluce : dict,n : int): 
-#     """
-#      prend la solution et la taille du côté du laby, et le trace sur un plot
-#      """
-    
-
-# def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str, entrance:int, exit:int):
-#     """
-#     Plot le labyrinthe et sa solution, avec le titre de la méthode utilisée 
-#     """
-#     plot_laby(graph, dico, entrance, exit)
-#     plot_soluce(soluce,cote)
-#     plt.title(str(title))
-
-
-# def coloriage(fig, visite, n): #prends une plt.figure en paramètre, la liste des cases visitées(encore sous la forme de chiffre) et la taille du laby
-#     """
-#     colorie les cases visitées 
-#     """
-    
-
 
 
     
