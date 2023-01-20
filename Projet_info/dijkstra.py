@@ -57,7 +57,7 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     chemin = []
     s = end
     while s!=start : 
-        A +=[s]
+        chemin +=[s]
         s = predecesseur[s]
     chemin += [start]
     time_end = time.time()
