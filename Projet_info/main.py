@@ -5,7 +5,7 @@ import pyplot_lab
 import sys 
 
 def main():
-    n = 4
+    n = 6
     sys.setrecursionlimit(20000) # pour pouvoir ne pas se limiter à n=31ss
     
     nbCycles=2
