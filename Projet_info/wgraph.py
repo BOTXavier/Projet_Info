@@ -72,6 +72,8 @@ class WGraph(object):
         elif t==1:
             random.shuffle(L)
             return L
+     
+
     
 
 class laby(object):

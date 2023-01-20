@@ -11,7 +11,6 @@ entrance, exit = lg.entrance_exit(10)
 #plt_lab.plot_soluce(sol,10)
 #plt.show()
 
-visite = sol[2]
-figure = plt.figure()
-plt_lab.coloriage(figure, visite, 10)
-plt.show()
+#visite = sol[2]
+#figure = plt.figure()
+#plt_lab.coloriage(figure, visite, 10)
