@@ -82,7 +82,7 @@ def dijkstra_bidirect(Graph ,start : int, end : int):
         forward_dist, forward_node = dist1[node_f] , node_f 
         # si ce noeud n'a pas été visité
         if forward_node not in forward_visited:
-            # Le marqué comme visité
+            # Le marquer comme visité
             forward_visited.append(forward_node)
             # si le noeud est present dans le backward_visisited, chemin trouvé , fin de l'algo
             if forward_node in backward_visited:
