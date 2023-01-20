@@ -67,7 +67,8 @@ def appui_bouton_dijsktra_bidirectionnel():
     plt.close()
     r= dj.dijkstra_bidirect(maze.Graph,maze.entrance,maze.exit)
     pyplot_lab.plot(maze.Graph,maze.dico,r,maze.cote,"Solution par dijkstra bidirectionnel", maze.entrance, maze.exit)
-    print("Le temps de calcul pour le dijkstra bidirectionnel est de :" + str(r[-1]))
+    print("Le temps de calcul pour le dijkstra bidirectionnel est de :" + str(r[-2]))
+    print("Le nombre des cases visitées est :" + str(len(r[-1])))
     #print(f'le chemin le plus court est {r}')
     plt.show()
 
