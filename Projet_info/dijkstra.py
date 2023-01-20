@@ -28,7 +28,7 @@ def maj_dist(s1:int, s2:int, predecesseur : dict, dist :dict , Graph):
 
 def delete_double(L):
     '''permet de supprimer les doublons de noeuds présents dans le chemin (sous forme de liste) du
-    dijsktra biddirectionnelle''' 
+    dijsktra bidirectionnelle''' 
     new_list = [] 
     for i in L : 
         if i not in new_list: 
