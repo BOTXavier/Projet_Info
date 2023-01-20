@@ -63,45 +63,43 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     return A,dist[end],visite, execution_time
 
 
-def dijkstra_bidirect(G,start : int, end : int): #G un graphe
+def dijkstra_bidirect(Graph ,start : int, end : int): 
     time_begin = time.time()
-    d1 = initialisation(G,start)
-    d2 = initialisation(G,end)
-    L = G.nodes()
-    Lq = [(d1[u],u) for u in L]
-    Lq1= [(d2[u],u) for u in L]
+    dist1 = initialisation(Graph,start)
+    dist2 = initialisation(Graph,end)
+    L = Graph.nodes()
+    Lq = [(dist1[u],u) for u in L]
+    Lq1= [(dist2[u],u) for u in L]
     forward_heap = pq.PrioQueue(Lq)
     backward_heap = pq.PrioQueue(Lq1)
     forward_visited , backward_visited = [] , []
-    forward_path = {start: []}
-    backward_path = {end: []}
+    forward_path, backward_path =  {start: []}, {end: []}
     
     while not (forward_heap.is_empty() or backward_heap.is_empty()):
-        # Get the node with the smallest distance from the forward heap
+        # récupèrer le noeud avec la plus petite distance
         node_f = find_min(forward_heap)
-        forward_dist, forward_node = d1[node_f] , node_f 
-        # If the node has not been visited 
+        forward_dist, forward_node = dist1[node_f] , node_f 
+        # si ce noeud n'a pas été visité
         if forward_node not in forward_visited:
-            # Mark it as visited
+            # Le marqué comme visité
             forward_visited.append(forward_node)
-            # If the node is also in the backward visited set, we have found the shortest path
+            # si le noeud est present dans le backward_visisited, chemin trouvé , fin de l'algo
             if forward_node in backward_visited:
                 back_path = delete_double(backward_path[forward_node][::-1])
                 time_end = time.time()
                 execution_time = time_end - time_begin 
-                print(forward_path[forward_node], backward_path[forward_node][::-1])
-                return forward_path[forward_node] + back_path , forward_dist + d2[forward_node],execution_time
-            # If not, update the distances and paths of its neighbors and add them to the heap
-            for voisin,poids in G.neighbours(forward_node):
+                return forward_path[forward_node] + back_path , forward_dist + dist2[forward_node],execution_time
+            # sinon, mise a jour du poids de chaque noeud voisin 
+            for voisin,poids in Graph.neighbours(forward_node):
                 if voisin not in forward_visited:
                     new_dist = forward_dist + poids 
-                    if new_dist < d1[voisin]:
-                        d1[voisin] = new_dist
+                    if new_dist < dist1[voisin]:
+                        dist1[voisin] = new_dist
                         forward_path[voisin] = forward_path[forward_node] + [forward_node]
                         forward_heap.decrease_prio(voisin,new_dist)
-        # Do the same thing for the backward heap
+        # Faire la meme chose de l'autre zone de recherche (backward_search)
         node_b = find_min(backward_heap)
-        backward_dist, backward_node = d2[node_b] , node_b 
+        backward_dist, backward_node = dist2[node_b] , node_b 
         if backward_node not in backward_visited:
             backward_visited.append(backward_node)
             if backward_node in forward_visited:
@@ -109,13 +107,12 @@ def dijkstra_bidirect(G,start : int, end : int): #G un graphe
                 back_path = delete_double(backward_path[backward_node])
                 time_end = time.time()
                 execution_time = time_end - time_begin 
-                print (forward_path[backward_node], backward_path[backward_node],"b")
-                return forward_path[backward_node] + back_path ,backward_dist + d1[backward_node],execution_time
-            for voisin,poids in G.neighbours(backward_node):
+                return forward_path[backward_node] + back_path ,backward_dist + dist1[backward_node],execution_time
+            for voisin,poids in Graph.neighbours(backward_node):
                 if voisin not in backward_visited:
                     new_dist = backward_dist + poids 
-                    if new_dist < d2[voisin]:
-                        d2[voisin] = new_dist
+                    if new_dist < dist2[voisin]:
+                        dist2[voisin] = new_dist
                         backward_path[voisin] = backward_path[backward_node]+[backward_node]+[voisin]
                         backward_heap.decrease_prio(voisin,new_dist)
     time_end = time.time()
