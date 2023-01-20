@@ -49,6 +49,7 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     while not forward_heap.is_empty():
         node = find_min(forward_heap)
         visite.append(node)
+        if node == end : break
         for voisin,poids in G.neighbours(node):
             maj_dist(node,voisin,predecesseur,dist,G)
             forward_heap.decrease_prio(voisin,dist[voisin])
