@@ -60,7 +60,7 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     A += [start]
     time_end = time.time()
     execution_time = time_end - time_begin 
-    return A,dist[end],visite, execution_time
+    return A,dist[end], execution_time, visite 
 
 
 def dijkstra_bidirect(Graph ,start : int, end : int): 
@@ -88,7 +88,7 @@ def dijkstra_bidirect(Graph ,start : int, end : int):
                 back_path = delete_double(backward_path[forward_node][::-1])
                 time_end = time.time()
                 execution_time = time_end - time_begin 
-                return forward_path[forward_node] + back_path , forward_dist + dist2[forward_node],execution_time, forward_visited + backward_visited
+                return forward_path[forward_node] + back_path , forward_dist + dist2[forward_node],execution_time, forward_visited, backward_visited
             # sinon, mise a jour du poids de chaque noeud voisin 
             for voisin,poids in Graph.neighbours(forward_node):
                 if voisin not in forward_visited:
@@ -107,7 +107,7 @@ def dijkstra_bidirect(Graph ,start : int, end : int):
                 back_path = delete_double(backward_path[backward_node])
                 time_end = time.time()
                 execution_time = time_end - time_begin 
-                return forward_path[backward_node] + back_path ,backward_dist + dist1[backward_node],execution_time, forward_visited + backward_visited
+                return forward_path[backward_node] + back_path, backward_dist + dist1[backward_node], execution_time, forward_visited, backward_visited
             for voisin,poids in Graph.neighbours(backward_node):
                 if voisin not in backward_visited:
                     new_dist = backward_dist + poids 

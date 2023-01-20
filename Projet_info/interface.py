@@ -43,7 +43,7 @@ def appui_bouton_gen_laby():
     maze.cycle = nb_cycle.sp.value()
     maze.dico, maze.Graph = lg.Laby_DictLaby_Graph(maze.cote,1,maze.cycle,1) #(n,t,nbCycles,w)
     maze.entrance, maze.exit = lg.entrance_exit(maze.cote)
-    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit,None,maze.cote, None, False, False, "Labyrinthe",None)   
+    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit,None,maze.cote, None,None, False, False, "Labyrinthe",None)   
     fen1.closeWindow()
     fen2.show()
     plt.show() 
@@ -54,9 +54,10 @@ def appui_bouton_dijsktra_classique():
     lance l'algo dijkstra classique et l'affiche par dessus le laby
     """
     plt.close()
-    r= dj.dijkstra_classic(maze.Graph,maze.entrance,maze.exit)
-    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, r[0], maze.cote, r[2], True, False,"Solution par dijkstra classique",r[1]) 
-    print("Le temps de calcul pour le dijkstra classique est de :" + str(r[-1]))
+    maze.bidij = False
+    maze.solution = dj.dijkstra_classic(maze.Graph,maze.entrance,maze.exit)
+    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3],None, True, False,"Solution par dijkstra classique",maze.solution[1]) 
+    print("Le temps de calcul pour le dijkstra classique est de :" + str(maze.solution[2]))
 
 
 def appui_bouton_dijsktra_bidirectionnel():   
@@ -64,10 +65,11 @@ def appui_bouton_dijsktra_bidirectionnel():
     lance l'algo dijkstra bidirectionnel et l'affiche par dessus le laby
     """
     plt.close()
-    r= dj.dijkstra_bidirect(maze.Graph,maze.entrance,maze.exit)
-    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, r[0], maze.cote, r[2], True, False,"Solution par dijkstra bidirectionnel",r[1])
-    print("Le temps de calcul pour le dijkstra bidirectionnel est de :" + str(r[-1]))
-    print("Le nombre des cases visitées est :" + str(len(r[-1])))
+    maze.bidij = True
+    maze.solution = dj.dijkstra_bidirect(maze.Graph,maze.entrance,maze.exit)
+    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3],maze.solution[4], True, False,"Solution par dijkstra bidirectionnel",maze.solution[1])
+    print("Le temps de calcul pour le dijkstra bidirectionnel est de :" + str(maze.solution[2]))
+    print("Le nombre des cases visitées est :" + str(len(maze.solution[3])))
 
 
 def appui_bouton_home():
@@ -77,6 +79,19 @@ def appui_bouton_home():
     fen2.closeWindow()
     plt.close()
     fen1.show()
+
+
+def appui_bouton_afficher_case():
+    """
+    Affiche les cases parcourues par l'algorithme
+    """
+    plt.close()
+    if maze.bidij:
+        x = maze.solution[4]
+    else : 
+        x = None
+    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3], x, True, True,"Cases parcourues",maze.solution[1])
+
 
 
 app = QApplication.instance() 
@@ -101,6 +116,7 @@ fen1.show()
 #parametrage fenetre laby
 fen2 = Fenetre("laby")
 layout2 = QGridLayout()
+
 # definition du bouton permettant d'utiliser l'algo de dijsktra
 bouton_dijsktra_classique = QPushButton("Dijsktra")
 bouton_dijsktra_classique.clicked.connect(appui_bouton_dijsktra_classique)
@@ -110,6 +126,11 @@ layout2.addWidget(bouton_dijsktra_classique,0,0)
 bouton_dijsktra_bidirectionnel = QPushButton("Dijsktra bidirectionnel")
 bouton_dijsktra_bidirectionnel.clicked.connect(appui_bouton_dijsktra_bidirectionnel)
 layout2.addWidget(bouton_dijsktra_bidirectionnel,0,1)
+
+# definition du bouton permettant d'afficher les cases
+bouton_afficher_case = QPushButton("Afficher les cases parcourues")
+bouton_afficher_case.clicked.connect(appui_bouton_afficher_case)
+layout2.addWidget(bouton_afficher_case,0,3)
 
 # définition du bouton permettant de retourner au menu
 bouton_home = QPushButton("Home")
