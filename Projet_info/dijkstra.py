@@ -3,9 +3,10 @@ import prioqueue as pq
 import time 
 
 
-def initialisation(G,start: int):
+def initialisation(Graph,start: int):
+    '''initialise les poids de chaque noeud à l'infini, sauf le noeuds start qui sera de poids nul '''
     INF = 10000
-    L = G.nodes()
+    L = Graph.nodes()
     dist = {}
     for u in L:
         dist[u]= INF
@@ -13,18 +14,21 @@ def initialisation(G,start: int):
     return dist
 
 def find_min(heap_node : pq.PrioQueue):
+    '''return le noeud avec le poids minimal'''
     b = heap_node.pop()
     return b[1]
 
 def maj_dist(s1:int, s2:int, predecesseur : dict, dist :dict , Graph):
+    '''effectue la mise a jour des poids des noeuds s1 et s2 et les marque comme noeuds liés '''
     a = Graph.weight(s1,s2)
-    
     if dist[s2] > dist[s1] + a :
         dist[s2] = dist[s1] + a
         predecesseur[s2] = s1
     return dist,predecesseur
 
-def delete_double(L): # permet de supprimer les doublons de noeuds présents dans l
+def delete_double(L):
+    '''permet de supprimer les doublons de noeuds présents dans le chemin (sous forme de liste) du
+    dijsktra biddirectionnelle''' 
     new_list = [] 
     for i in L : 
         if i not in new_list: 
@@ -35,25 +39,30 @@ def delete_double(L): # permet de supprimer les doublons de noeuds présents dan
 
 
 
-def dijkstra_classic(G,start : int , end: int):  #G un graphe
+def dijkstra_classic(Graph,start : int , end: int): 
     """
     return le chemin le plus court (liste de noeuds successif) et la longueur de ce chemin
     """
     time_begin = time.time()
-    dist = initialisation(G,start)
-    L = G.nodes()
+    dist = initialisation(Graph,start)
+    L = Graph.nodes()
     Lq = [(dist[u],u) for u in L]
     forward_heap = pq.PrioQueue(Lq)
     
     predecesseur ={}
     visite = []
     while not forward_heap.is_empty():
+        # chercher le noeud avec le poids le plus petit 
         node = find_min(forward_heap)
         visite.append(node)
+        # arreter l'algorithme lorsque ce noeud est enfaite la sortie "end" 
         if node == end : break
-        for voisin,poids in G.neighbours(node):
-            maj_dist(node,voisin,predecesseur,dist,G)
+        # mise a jour des poids des noeuds voisins  
+        for voisin,poids in Graph.neighbours(node):
+            maj_dist(node,voisin,predecesseur,dist,Graph)
+            # mise a jour priorité
             forward_heap.decrease_prio(voisin,dist[voisin])
+    # enfin, récupèrer le chemin dans l'ordre start-end 
     chemin = []
     s = end
     while s!=start : 
