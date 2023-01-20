@@ -43,7 +43,7 @@ def appui_bouton_gen_laby():
     maze.cycle = nb_cycle.sp.value()
     maze.dico, maze.Graph = lg.Laby_DictLaby_Graph(maze.cote,1,maze.cycle,1) #(n,t,nbCycles,w)
     maze.entrance, maze.exit = lg.entrance_exit(maze.cote)
-    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, lab=False)   
+    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit,None,maze.cote, None, False, False, "Labyrinthe",None)   
     fen1.closeWindow()
     fen2.show()
     plt.show() 
@@ -55,10 +55,9 @@ def appui_bouton_dijsktra_classique():
     """
     plt.close()
     r= dj.dijkstra_classic(maze.Graph,maze.entrance,maze.exit)
-    pyplot_lab.plot(maze.Graph,maze.dico,r,maze.cote,"Solution par dijkstra classique", maze.entrance, maze.exit)
+    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, r[0], maze.cote, r[2], True, False,"Solution par dijkstra classique",r[1]) 
     print("Le temps de calcul pour le dijkstra classique est de :" + str(r[-1]))
-    #print(f'le chemin le plus court est {r}')
-    plt.show()
+
 
 def appui_bouton_dijsktra_bidirectionnel():   
     """
@@ -66,10 +65,8 @@ def appui_bouton_dijsktra_bidirectionnel():
     """
     plt.close()
     r= dj.dijkstra_bidirect(maze.Graph,maze.entrance,maze.exit)
-    pyplot_lab.plot(maze.Graph,maze.dico,r,maze.cote,"Solution par dijkstra bidirectionnel", maze.entrance, maze.exit)
+    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, r[0], maze.cote, r[2], True, False,"Solution par dijkstra bidirectionnel",r[1])
     print("Le temps de calcul pour le dijkstra bidirectionnel est de :" + str(r[-1]))
-    #print(f'le chemin le plus court est {r}')
-    plt.show()
 
 
 def appui_bouton_home():

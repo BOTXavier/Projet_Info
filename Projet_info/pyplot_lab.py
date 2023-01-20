@@ -23,7 +23,7 @@ def noeud_en_case(noeud : int, cote : int):
 
 
 
-def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int):
+def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,visite : list, afficher_soluce:bool, afficher_cases:bool, title:str,distance:int):
     """
     Prend en argument un graph G de dictionnaire t, et l'affiche de manière visuelle
     """
@@ -74,42 +74,55 @@ def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int):
     ax.add_patch(rect2)
     
 
+    if afficher_cases:
+        #on colorie les cases visitées par l'algorithme
+        for elt in visite:
+            x, y = noeud_en_case(elt, n)
+            x1, y1 = x- 0.5, y - 0.5
+            rect = Rectangle((x1, y1), 1, 1, color='gray')
+            ax.add_patch(rect)
 
-def plot_soluce(soluce : dict,n : int): 
-    """
-     prend la solution et la taille du côté du laby, et le trace sur un plot
-     """
-    l = [noeud_en_case(elt,n) for elt in soluce[0]]
-    #On dessine le lien entre les cases qui sont censées se suivre
-    indice = 0
-    while indice != soluce[1] : 
-        x1 = l[indice][0]
-        x2 = l[indice+1][0]
-        y1 = l[indice][1]
-        y2 = l[indice+1][1]
-        plt.plot([y1,y2],[x1,x2],"r")
-        indice += 1
 
-def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str, entrance:int, exit:int):
-    """
-    Plot le labyrinthe et sa solution, avec le titre de la méthode utilisée 
-    """
-    plot_laby(graph, dico, entrance, exit, lab=False)
-    plot_soluce(soluce,cote)
+    if afficher_soluce :
+        l = [noeud_en_case(elt,n) for elt in soluce]
+        print(l)
+        #On dessine le lien entre les cases qui sont censées se suivre
+        indice = 0
+        print(len(l))
+        while indice != distance : 
+            x1 = l[indice][0]
+            print(indice)
+            x2 = l[indice+1][0]
+            y1 = l[indice][1]
+            y2 = l[indice+1][1]
+            plt.plot([y1,y2],[x1,x2],"r")
+            indice += 1
     plt.title(str(title))
+    plt.show()
 
 
-def coloriage(fig, visite, n): #prends une plt.figure en paramètre, la liste des cases visitées(encore sous la forme de chiffre) et la taille du laby
-    """
-    colorie les cases visitées 
-    """
-    ax = fig.add_subplot()
-    for elt in visite:
-        x, y = noeud_en_case(elt, n)
-        x1, y1 = x- 0.5, y - 0.5
-        ax = fig.add_subplot()
-        rect = Rectangle((x1, y1), 1, 1, color='gray')
-        ax.add_patch(rect)
+    
+
+# def plot_soluce(soluce : dict,n : int): 
+#     """
+#      prend la solution et la taille du côté du laby, et le trace sur un plot
+#      """
+    
+
+# def plot(graph: g.WGraph,dico : dict, soluce : dict, cote : int, title: str, entrance:int, exit:int):
+#     """
+#     Plot le labyrinthe et sa solution, avec le titre de la méthode utilisée 
+#     """
+#     plot_laby(graph, dico, entrance, exit)
+#     plot_soluce(soluce,cote)
+#     plt.title(str(title))
+
+
+# def coloriage(fig, visite, n): #prends une plt.figure en paramètre, la liste des cases visitées(encore sous la forme de chiffre) et la taille du laby
+#     """
+#     colorie les cases visitées 
+#     """
+    
 
 
 
