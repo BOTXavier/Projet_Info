@@ -23,7 +23,8 @@ def maj_dist(s1:int, s2:int, predecesseur : dict, dist :dict , Graph):
         dist[s2] = dist[s1] + a
         predecesseur[s2] = s1
     return dist,predecesseur
-def delete_double(L):
+
+def delete_double(L): # permet de supprimer les doublons de noeuds présents dans l
     new_list = [] 
     for i in L : 
         if i not in new_list: 
@@ -53,15 +54,15 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
         for voisin,poids in G.neighbours(node):
             maj_dist(node,voisin,predecesseur,dist,G)
             forward_heap.decrease_prio(voisin,dist[voisin])
-    A = []
+    chemin = []
     s = end
     while s!=start : 
         A +=[s]
         s = predecesseur[s]
-    A += [start]
+    chemin += [start]
     time_end = time.time()
     execution_time = time_end - time_begin 
-    return A,dist[end], execution_time, visite 
+    return chemin , dist[end], execution_time, visite 
 
 
 def dijkstra_bidirect(Graph ,start : int, end : int): 
@@ -118,5 +119,5 @@ def dijkstra_bidirect(Graph ,start : int, end : int):
                         backward_heap.decrease_prio(voisin,new_dist)
     time_end = time.time()
     execution_time = time_end - time_begin 
-    return "absence de plus court chemin !!! vérifier si vous avez mis le bon start et end",execution_time
+    return "absence de plus court chemin !!! vérifier si vous avez mis le bon start et end", execution_time
                               
