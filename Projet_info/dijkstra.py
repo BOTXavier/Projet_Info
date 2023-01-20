@@ -5,11 +5,11 @@ import time
 
 def initialisation(Graph,start: int):
     '''initialise les poids de chaque noeud à l'infini, sauf le noeuds start qui sera de poids nul '''
-    INF = 10000
+    inf = 10000
     L = Graph.nodes()
     dist = {}
     for u in L:
-        dist[u]= INF
+        dist[u]= inf
     dist[start]=0
     return dist
 
