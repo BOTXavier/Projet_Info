@@ -66,7 +66,6 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
 
 
 def dijkstra_bidirect(Graph ,start : int, end : int): 
-    time_begin = time.time()
     dist1 = initialisation(Graph,start)
     dist2 = initialisation(Graph,end)
     L = Graph.nodes()
@@ -76,7 +75,7 @@ def dijkstra_bidirect(Graph ,start : int, end : int):
     backward_heap = pq.PrioQueue(Lq1)
     forward_visited , backward_visited = [] , []
     forward_path, backward_path =  {start: []}, {end: []}
-    
+    time_begin = time.time()
     while not (forward_heap.is_empty() or backward_heap.is_empty()):
         # récupèrer le noeud avec la plus petite distance
         node_f = find_min(forward_heap)
