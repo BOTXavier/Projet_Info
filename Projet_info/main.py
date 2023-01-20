@@ -3,20 +3,16 @@ import matplotlib.pyplot as plt
 import dijkstra as dj
 import pyplot_lab 
 import sys 
+import comparaison as cp
 
 def main():
-    n = 6
-    sys.setrecursionlimit(20000) # pour pouvoir ne pas se limiter à n=31ss
-    
-    nbCycles=2
-    #ATTENTION a utiliser pour test seulement, car crée un nouveau laby
-    g,G=lg.Laby_DictLaby_Graph(n,1,nbCycles, 1) #(n,t,nbCycles,w) 
-    
-    pyplot_lab.plot_laby(G,g,1,n**2) 
-    r = dj.dijkstra_bidirect(G,1,n**2)
-    pyplot_lab.plot_soluce(r,n)
-    print(f'le chemin le plus court est {r}')
-    plt.show()
-    
+    n = 5
+    dico, graph = lg.Laby_DictLaby_Graph(n,1,n,1)
+    entrance, exit = lg.entrance_exit(n)
+    sol_classique = dj.dijkstra_classic(graph,entrance,exit)
+
+    cp.recup_donnees("donnees_dij.txt",sol_classique[2],len(sol_classique[-1]))
+    cp.recup_donnees("donnees_bidij.txt",sol_classique[2],len(sol_classique[-1]+sol_classique[-2]))
+
 
 main()
