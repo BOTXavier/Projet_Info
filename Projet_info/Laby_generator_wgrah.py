@@ -43,8 +43,7 @@ def laby_dict(n : int,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph f
         return Gf
     Dico= dfs_rec(depart,Gf)
     for item in Dico :                #transforme les valeurs du dico en tableau
-        Dico[item]=[Dico[item]]
-    Dico[4].append(3) 
+        Dico[item]=[Dico[item]] 
     return Dico
 
 
