@@ -49,6 +49,7 @@ def dijkstra_classic(G,start : int , end: int):  #G un graphe
     while not forward_heap.is_empty():
         node = find_min(forward_heap)
         visite.append(node)
+        if node == end : break
         for voisin,poids in G.neighbours(node):
             maj_dist(node,voisin,predecesseur,dist,G)
             forward_heap.decrease_prio(voisin,dist[voisin])
@@ -81,7 +82,7 @@ def dijkstra_bidirect(Graph ,start : int, end : int):
         forward_dist, forward_node = dist1[node_f] , node_f 
         # si ce noeud n'a pas été visité
         if forward_node not in forward_visited:
-            # Le marqué comme visité
+            # Le marquer comme visité
             forward_visited.append(forward_node)
             # si le noeud est present dans le backward_visisited, chemin trouvé , fin de l'algo
             if forward_node in backward_visited:
