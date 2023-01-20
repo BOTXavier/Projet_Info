@@ -130,9 +130,12 @@ def entrance_exit(cote :int):
     n = cote ** 2
     list1 = [i for i in range(1,cote+1)]
     list3 = [ i for i in range(n - cote+1,n+1)]
+
     list = [(1 + i * cote) for i in range(1,cote-1)]
     list2 = [(i * cote) for i in range(2,cote)]   
-    l = list + list2 + list3 + list1
-    l.sort()
-    random.shuffle(l)
-    return l[0],l[1]
+
+    l1 = list1 + list2
+    l2 = list3 + list
+    random.shuffle(l1)
+    random.shuffle(l2)
+    return l1[0],l2[0]
