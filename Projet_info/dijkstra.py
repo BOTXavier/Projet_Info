@@ -77,17 +77,17 @@ def dijkstra_classic(Graph,start : int , end: int):
 
 
 def dijkstra_bidirect(Graph ,start : int, end : int): 
-    dist1 = initialisation(Graph,start)
-    dist2 = initialisation(Graph,end)
-    forward_heap = node_heap(dist1,Graph)
-    backward_heap = node_heap(dist2,Graph)
+    dist_forw = initialisation(Graph,start)
+    dist_back = initialisation(Graph,end)
+    forward_heap = node_heap(dist_forw,Graph)
+    backward_heap = node_heap(dist_back,Graph)
     forward_visited , backward_visited = [] , []
     forward_path, backward_path =  {start: []}, {end: []}
     time_begin = time.time()
     while not (forward_heap.is_empty() or backward_heap.is_empty()):
         # récupèrer le noeud avec la plus petite distance
         node_f = find_min(forward_heap)
-        forward_dist, forward_node = dist1[node_f] , node_f 
+        forward_dist, forward_node = dist_forw[node_f] , node_f 
         # si ce noeud n'a pas été visité
         if forward_node not in forward_visited:
             # Le marquer comme visité
@@ -97,18 +97,18 @@ def dijkstra_bidirect(Graph ,start : int, end : int):
                 back_path = delete_double(backward_path[forward_node][::-1])
                 time_end = time.time()
                 execution_time = time_end - time_begin 
-                return forward_path[forward_node] + back_path , forward_dist + dist2[forward_node],execution_time, forward_visited, backward_visited
+                return forward_path[forward_node] + back_path , forward_dist + dist_back[forward_node],execution_time, forward_visited, backward_visited
             # sinon, mise a jour du poids de chaque noeud voisin 
             for voisin,poids in Graph.neighbours(forward_node):
                 if voisin not in forward_visited:
                     new_dist = forward_dist + poids 
-                    if new_dist < dist1[voisin]:
-                        dist1[voisin] = new_dist
+                    if new_dist < dist_forw[voisin]:
+                        dist_forw[voisin] = new_dist
                         forward_path[voisin] = forward_path[forward_node] + [forward_node]
                         forward_heap.decrease_prio(voisin,new_dist)
         # Faire la meme chose de l'autre zone de recherche (backward_search)
         node_b = find_min(backward_heap)
-        backward_dist, backward_node = dist2[node_b] , node_b 
+        backward_dist, backward_node = dist_back[node_b] , node_b 
         if backward_node not in backward_visited:
             backward_visited.append(backward_node)
             if backward_node in forward_visited:
@@ -116,12 +116,12 @@ def dijkstra_bidirect(Graph ,start : int, end : int):
                 back_path = delete_double(backward_path[backward_node])
                 time_end = time.time()
                 execution_time = time_end - time_begin 
-                return forward_path[backward_node] + back_path, backward_dist + dist1[backward_node], execution_time, forward_visited, backward_visited
+                return forward_path[backward_node] + back_path, backward_dist + dist_forw[backward_node], execution_time, forward_visited, backward_visited
             for voisin,poids in Graph.neighbours(backward_node):
                 if voisin not in backward_visited:
                     new_dist = backward_dist + poids 
-                    if new_dist < dist2[voisin]:
-                        dist2[voisin] = new_dist
+                    if new_dist < dist_back[voisin]:
+                        dist_back[voisin] = new_dist
                         backward_path[voisin] = backward_path[backward_node]+[backward_node]+[voisin]
                         backward_heap.decrease_prio(voisin,new_dist)
     time_end = time.time()
