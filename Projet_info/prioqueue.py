@@ -27,7 +27,7 @@ class PrioQueue(object):
                 self.queue[i][0] = new_prio
                 heapq._siftdown(self.queue, 0, i)
         return self.queue
-        raise KeyError("decrease_prio")
+        
 
 
     def pop(self):
