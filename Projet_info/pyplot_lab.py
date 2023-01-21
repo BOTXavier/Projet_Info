@@ -44,9 +44,9 @@ def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,
     d = 0.5
     plt.axis([-1, n, -1, n])
     for x in range(n + 1):
-        plt.plot((x - d, x - d), (-d, n- d), 'm')
+        plt.plot((x - d, x - d), (-d, n- d), 'black')
     for y in range(n + 1):
-        plt.plot((-d, n - d), (y - d, y - d), 'm')
+        plt.plot((-d, n - d), (y - d, y - d), 'black')
     # il faut maintenant convertir mes noeuds (type int) en coordonnées cartésiens :
     for elt in t:
         h = t[elt]

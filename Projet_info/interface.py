@@ -5,7 +5,7 @@ import dijkstra as dj
 import matplotlib.pyplot as plt 
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QSpinBox, QGridLayout
-
+import comparaison as cp
 maze = wgraph.laby(None,None,50,None,None,None)
 
 class Fenetre(QWidget):
@@ -27,7 +27,7 @@ class spindemo(QWidget):
       self.l1 = QLabel(str(title))
       layout.addWidget(self.l1)
       self.sp = QSpinBox()
-      self.sp.setRange(0,90)		
+      self.sp.setRange(0,60)		
       layout.addWidget(self.sp)
       self.sp.valueChanged.connect(self.valuechange)
       self.setLayout(layout)
@@ -35,7 +35,6 @@ class spindemo(QWidget):
 		
    def valuechange(self):
       self.l1.setText(str(self.title)+ ":" + str(self.sp.value()))
-
 
 
 def appui_bouton_gen_laby():
@@ -93,6 +92,10 @@ def appui_bouton_afficher_case():
     pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3], x, True, True,"Cases parcourues",maze.solution[1])
 
 
+def appui_bouton_afficher_graph():
+    cp.plot_comparaison("donnees_dij.txt","donnees_bidij.txt")
+    plt.show()
+
 
 app = QApplication.instance() 
 if not app:
@@ -103,13 +106,21 @@ sys.setrecursionlimit(maze.cote**2) # pour pouvoir ne pas se limiter à n=31
 #parametrage fenetre home 
 fen1 = Fenetre("Home")
 cote_laby = spindemo("Côté du labyrinthe")
+cote_laby.sp.setRange(1,60)
 nb_cycle = spindemo("Nombre de cycles du labyrinthe")
+nb_cycle.sp.setRange(0,60**2)
+#definition du bouton afficher comparaison algo 
+bouton_afficher_graph = QPushButton("Afficher la courbe de comparaison")
+bouton_afficher_graph.clicked.connect(appui_bouton_afficher_graph)
 bouton_gen_laby = QPushButton("générer un labyrinthe")
 bouton_gen_laby.clicked.connect(appui_bouton_gen_laby)
+
+#on organise les differents éléments dans le layout
 layout = QGridLayout()
 layout.addWidget(cote_laby,0,0)
 layout.addWidget(bouton_gen_laby,1,0)
 layout.addWidget(nb_cycle,0,1)
+layout.addWidget(bouton_afficher_graph,1,1)
 fen1.setLayout(layout)
 fen1.show()
 
