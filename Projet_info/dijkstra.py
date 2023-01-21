@@ -35,6 +35,10 @@ def delete_double(L):
             new_list.append(i) 
     return new_list
 
+def node_heap(dist,Graph):
+    nodes = Graph.nodes()
+    nodes_heap_list =  [(dist[u],u) for u in nodes]
+    return pq.PrioQueue(nodes_heap_list)
 
 
 
@@ -45,9 +49,7 @@ def dijkstra_classic(Graph,start : int , end: int):
     """
     time_begin = time.time()
     dist = initialisation(Graph,start)
-    L = Graph.nodes()
-    Lq = [(dist[u],u) for u in L]
-    forward_heap = pq.PrioQueue(Lq)
+    forward_heap = node_heap(dist,Graph)
     
     predecesseur ={}
     visite = []
@@ -77,11 +79,8 @@ def dijkstra_classic(Graph,start : int , end: int):
 def dijkstra_bidirect(Graph ,start : int, end : int): 
     dist1 = initialisation(Graph,start)
     dist2 = initialisation(Graph,end)
-    L = Graph.nodes()
-    Lq = [(dist1[u],u) for u in L]
-    Lq1= [(dist2[u],u) for u in L]
-    forward_heap = pq.PrioQueue(Lq)
-    backward_heap = pq.PrioQueue(Lq1)
+    forward_heap = node_heap(dist1,Graph)
+    backward_heap = node_heap(dist2,Graph)
     forward_visited , backward_visited = [] , []
     forward_path, backward_path =  {start: []}, {end: []}
     time_begin = time.time()
