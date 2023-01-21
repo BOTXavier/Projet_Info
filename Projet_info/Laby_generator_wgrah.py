@@ -2,7 +2,7 @@ import wgraph
 import random 
 
 
-def Laby_first_form(n : int): # en entrée 1<=n<=31 
+def Laby_first_form(n : int): 
     """ 
     return un graph de n*n noeuds // tous les noeuds sont reliés à leurs plus proches voisins 
     """
