@@ -13,7 +13,7 @@ class WGraph(object):
         return '<WGraph: {0.adj}>'.format(self)
 
 
-    def add_node(self, u : int):
+    def add_node(self, u:int):
         """
         Add node u to the graph
         u must be of an orderable type (int for example)
@@ -21,7 +21,7 @@ class WGraph(object):
         self.adj[u] = []
 
 
-    def add_edge(self, u : int, v : int , weight : int):
+    def add_edge(self, u:int, v:int, weight:int):
         """
         Add edge (u, v, weight) to the graph,
         and the nodes u et v if necessary
@@ -46,12 +46,12 @@ class WGraph(object):
                 for u in self.adj for (v, weight) in self.adj[u] if u < v]
     
 
-    def neighbours(self, u : int):
+    def neighbours(self, u:int):
         """Return the list of neighbours (v, weight) of node u in the graph"""
         return self.adj[u]
     
 
-    def weight(self,u : int, v : int):
+    def weight(self, u:int, v:int):
         """return weight u-v"""
         w=0
         for a in self.adj[u]:
@@ -61,7 +61,7 @@ class WGraph(object):
         return w
         
 
-    def voisin(self,u : int, t : int):
+    def voisin(self, u:int, t:int):
         """return the list of neighbours v (type int) of node u in the graph """ 
         L=[]
         for voisin in self.neighbours(u):
@@ -72,19 +72,4 @@ class WGraph(object):
         elif t==1:
             random.shuffle(L)
             return L
-     
-
-    
-
-class laby(object):
-    def __init__(self,G : WGraph,g : dict,n : int ,m : int, entrance : int, exit : int):
-        self.Graph = G
-        self.dico = g
-        self.cote = n
-        self.cycle = m
-        self.entrance = entrance
-        self.exit = exit
-        self.solution = None
-        self.bidij = False
-
-        
+             

@@ -2,7 +2,19 @@ import wgraph
 import random 
 
 
-def Laby_first_form(n : int): 
+class laby(object):
+    def __init__(self, G, g:dict, n:int, m:int, entrance:int, exit:int):
+        self.Graph = G
+        self.dico = g
+        self.cote = n
+        self.cycle = m
+        self.entrance = entrance
+        self.exit = exit
+        self.solution = None
+        self.bidij = False
+
+
+def Laby_first_form(n:int): 
     """ 
     return un graph de n*n noeuds // tous les noeuds sont reliés à leurs plus proches voisins 
     """
@@ -19,7 +31,7 @@ def Laby_first_form(n : int):
     return G 
   
 
-def laby_dict(n : int,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe 
+def laby_dict(n:int, t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph fixe 
     """
     return un dictionnaire permettant de connaitre le chemin suivi par le dfs. (Laby à n*n noeuds)
     Applique un algo de dfs pour "détruire" des murs 
@@ -48,7 +60,7 @@ def laby_dict(n : int,t=1): #  1<=n<=31 ; t=1 --> random graph ; t=0 --> graph f
     return Dico
 
 
-def Laby_Graph(g_dict : dict, w=1): # w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
+def Laby_Graph(g_dict:dict, w=1): # w=1 -> poids 1 sur tous les arretes ; w=0 ->poids random sur arrete(entre 1 et 4)
     ''' 
      return le graph associé au labyrinthe, possédant n*n noeuds 
     '''
@@ -70,7 +82,7 @@ def Laby_Graph(g_dict : dict, w=1): # w=1 -> poids 1 sur tous les arretes ; w=0 
 #ATTENTION ne modifie pas laby dict, juste le graph
 #Le Laby généré précédemment est parfait(=0 cycle), algo choisit un sommet aléatoirement, teste si il lui reste des sommets disponibles puis ajoute le sommet
 #si carré 1,2,3  4,5,6  7,8,9 alors les voisins geographiques de 2 sont 1,3,5
-def Add_Cycles(n,labyGraph,labyDict,nbCycles):
+def Add_Cycles(n:int, labyGraph, labyDict, nbCycles:int):
     compt,listeVoisinsGraph=0,[]
     while compt<nbCycles:                                           #répète l'opération m fois pour m cycles
         nbrandom=random.randint(1,n**2)                             #choisit aléatoirement le sommet sur lequel on veut ajouter une arète
@@ -92,7 +104,7 @@ def Add_Cycles(n,labyGraph,labyDict,nbCycles):
             compt+=1
         listeVoisinsGraph=[]
 
-def voisinGeo(nbrandom:int,n:int):
+def voisinGeo(nbrandom:int, n:int):
     """
     calcule les 2 à 4 différents voisins géographiques possibles
     """
@@ -110,13 +122,13 @@ def voisinGeo(nbrandom:int,n:int):
 
 
         
-def CoinBordOuCentreLaby(n:int,nbrandom:int):#prends un peu de mémoire mais gagne du temps
+def CoinBordOuCentreLaby(n:int, nbrandom:int):#prends un peu de mémoire mais gagne du temps
     if (nbrandom==1 or nbrandom==n or nbrandom==n**2-n+1 or nbrandom==n**2): return 2
     if (nbrandom%n==1 or nbrandom%n==0 or 1<nbrandom<n or n**2-n+1<nbrandom<n**2): return 3
     return 4
 
 
-def Laby_DictLaby_Graph(n : int,t: int, nbCycles : int, w = 1 ):  
+def Laby_DictLaby_Graph(n:int, t:int, nbCycles:int, w=1):  
     """
     renvoie un graph et son dictionnaire formant le labyrinthe
     """
@@ -126,10 +138,10 @@ def Laby_DictLaby_Graph(n : int,t: int, nbCycles : int, w = 1 ):
     return labyDict,labyGraph
 
 
-def entrance_exit(cote :int):
+def entrance_exit(cote:int):
     n = cote ** 2
     list1 = [i for i in range(1,cote+1)]
-    list3 = [ i for i in range(n - cote+1,n+1)]
+    list3 = [i for i in range(n - cote+1,n+1)]
 
     list = [(1 + i * cote) for i in range(1,cote-1)]
     list2 = [(i * cote) for i in range(2,cote)]   

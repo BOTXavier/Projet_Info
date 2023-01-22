@@ -6,10 +6,12 @@ import matplotlib.pyplot as plt
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QSpinBox, QGridLayout
 import comparaison as cp
-maze = wgraph.laby(None,None,50,None,None,None)
+
+maze = lg.laby(None, None, 50, None, None, None)
+sys.setrecursionlimit(maze.cote**2) 
 
 class Fenetre(QWidget):
-    def __init__(self,title: str):
+    def __init__(self, title:str):
         QWidget.__init__(self)
         self.setWindowTitle(str(title))
         # activation du suivi du mouvement de la souris
@@ -20,7 +22,7 @@ class Fenetre(QWidget):
 
 
 class spindemo(QWidget):
-   def __init__(self, title: str, parent = None):
+   def __init__(self, title:str, parent=None):
       super(spindemo, self).__init__(parent) 
       self.title = title  
       layout = QVBoxLayout()
@@ -36,13 +38,12 @@ class spindemo(QWidget):
    def valuechange(self):
       self.l1.setText(str(self.title)+ ":" + str(self.sp.value()))
 
-
 def appui_bouton_gen_laby():
     maze.cote = cote_laby.sp.value()
     maze.cycle = nb_cycle.sp.value()
-    maze.dico, maze.Graph = lg.Laby_DictLaby_Graph(maze.cote,1,maze.cycle,1) #(n,t,nbCycles,w)
+    maze.dico, maze.Graph = lg.Laby_DictLaby_Graph(maze.cote, 1, maze.cycle, 1) #(n,t,nbCycles,w)
     maze.entrance, maze.exit = lg.entrance_exit(maze.cote)
-    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit,None,maze.cote, None,None, False, False, "Labyrinthe",None)   
+    pyplot_lab.plot_laby(maze.Graph, maze.dico, maze.entrance, maze.exit, None, maze.cote, None, None, False, False, "Labyrinthe", None)   
     fen1.closeWindow()
     fen2.show()
     plt.show() 
@@ -54,8 +55,10 @@ def appui_bouton_dijsktra_classique():
     """
     plt.close()
     maze.bidij = False
-    maze.solution = dj.dijkstra_classic(maze.Graph,maze.entrance,maze.exit)
-    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3],None, True, False,"Solution par dijkstra classique",maze.solution[1]) 
+    maze.solution = dj.dijkstra_classic(maze.Graph, maze.entrance, maze.exit)
+    pyplot_lab.plot_laby(maze.Graph, maze.dico, maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3], 
+                            None, True, False, "Solution par dijkstra classique", maze.solution[1]) 
+
     print("Le temps de calcul pour le dijkstra classique est de :" + str(maze.solution[2]))
 
 
@@ -65,8 +68,10 @@ def appui_bouton_dijsktra_bidirectionnel():
     """
     plt.close()
     maze.bidij = True
-    maze.solution = dj.dijkstra_bidirect(maze.Graph,maze.entrance,maze.exit)
-    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3],maze.solution[4], True, False,"Solution par dijkstra bidirectionnel",maze.solution[1])
+    maze.solution = dj.dijkstra_bidirect(maze.Graph, maze.entrance, maze.exit)
+    pyplot_lab.plot_laby(maze.Graph, maze.dico, maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3], 
+                            maze.solution[4], True, False, "Solution par dijkstra bidirectionnel", maze.solution[1])
+
     print("Le temps de calcul pour le dijkstra bidirectionnel est de :" + str(maze.solution[2]))
     print("Le nombre des cases visitées est :" + str(len(maze.solution[3])))
 
@@ -89,11 +94,12 @@ def appui_bouton_afficher_case():
         x = maze.solution[4]
     else : 
         x = None
-    pyplot_lab.plot_laby(maze.Graph,maze.dico,maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3], x, True, True,"Cases parcourues",maze.solution[1])
+    pyplot_lab.plot_laby(maze.Graph, maze.dico, maze.entrance, maze.exit, maze.solution[0], maze.cote, maze.solution[3], 
+                        x, True, True, "Cases parcourues", maze.solution[1])
 
 
 def appui_bouton_afficher_graph():
-    cp.plot_comparaison("donnees_dij.txt","donnees_bidij.txt")
+    cp.plot_comparaison("donnees_dij.txt", "donnees_bidij.txt")
     plt.show()
 
 
@@ -101,7 +107,6 @@ app = QApplication.instance()
 if not app:
     app = QApplication(sys.argv)
 
-sys.setrecursionlimit(maze.cote**2) # pour pouvoir ne pas se limiter à n=31
 
 #parametrage fenetre home 
 fen1 = Fenetre("Home")

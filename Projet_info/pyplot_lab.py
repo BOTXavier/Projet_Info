@@ -5,7 +5,7 @@ import wgraph as g
 from matplotlib.patches import Rectangle
 
 
-def noeud_en_case(noeud : int, cote : int):
+def noeud_en_case(noeud:int, cote:int):
     """
     Converti un noeud en case de coordonnées (i,j)
     """
@@ -23,11 +23,12 @@ def noeud_en_case(noeud : int, cote : int):
 
 
 
-def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,visite : list, visite2, afficher_soluce:bool, afficher_cases:bool, title:str,distance:int):
+def plot_laby(G:g.WGraph, t:dict, entrance:int, exit:int, soluce:list, n:int, visite:list, visite2, afficher_soluce:bool, 
+                afficher_cases:bool, title:str, distance:int):
     """
     Prend en argument un graph G de dictionnaire t, et l'affiche de manière visuelle
     """
-    def colorier_cases(visite,color):
+    def colorier_cases(visite, color):
         """on colorie les cases visitées par l'algorithme
         """
         for elt in visite:
@@ -78,7 +79,7 @@ def plot_laby(G : g.WGraph,t : dict, entrance:int, exit:int, soluce:list, n:int,
             colorier_cases(visite2,"yellow")
 
         
-    if afficher_soluce :
+    if afficher_soluce:
         l = [noeud_en_case(elt,n) for elt in soluce]
         #On dessine le lien entre les cases qui sont censées se suivre
         indice = 0

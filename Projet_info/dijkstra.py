@@ -3,8 +3,10 @@ import prioqueue as pq
 import time 
 
 
-def dist_initial(Graph,start: int):
-    '''initialise les poids de chaque noeud à l'infini, sauf le noeuds start qui sera de poids nul '''
+def dist_initial(Graph, start:int):
+    '''
+    Initialise les poids de chaque noeud à l'infini, sauf le noeuds start qui sera de poids nul 
+    '''
     inf = 10000
     L = Graph.nodes()
     dist = {}
@@ -13,13 +15,17 @@ def dist_initial(Graph,start: int):
     dist[start]=0
     return dist
 
-def find_min(heap_node : pq.PrioQueue):
-    '''return le noeud avec le poids minimal'''
+def find_min(heap_node:pq.PrioQueue):
+    '''
+    Return le noeud avec le poids minimal
+    '''
     b = heap_node.pop()
     return b[1]
 
-def maj_dist(s1:int, s2:int, predecesseur : dict, dist :dict , Graph):
-    '''effectue la mise a jour des poids des noeuds s1 et s2 et les marque comme noeuds liés '''
+def maj_dist(s1:int, s2:int, predecesseur:dict, dist:dict, Graph):
+    '''
+    Effectue la mise a jour des poids des noeuds s1 et s2 et les marque comme noeuds liés 
+    '''
     a = Graph.weight(s1,s2)
     if dist[s2] > dist[s1] + a :
         dist[s2] = dist[s1] + a
@@ -27,8 +33,10 @@ def maj_dist(s1:int, s2:int, predecesseur : dict, dist :dict , Graph):
     return dist,predecesseur
 
 def delete_double(L):
-    '''permet de supprimer les doublons de noeuds présents dans le chemin (sous forme de liste) du
-    dijsktra bidirectionnelle''' 
+    '''
+    permet de supprimer les doublons de noeuds présents dans le chemin (sous forme de liste) du
+    dijsktra bidirectionnelle
+    ''' 
     new_list = [] 
     for i in L : 
         if i not in new_list: 
@@ -43,13 +51,13 @@ def node_heap(dist,Graph):
 
 
 
-def dijkstra_classic(Graph,start : int , end: int): 
+def dijkstra_classic(Graph, start:int, end:int): 
     """
     return le chemin le plus court (liste de noeuds successif) et la longueur de ce chemin
     """
     time_begin = time.time()
-    dist = dist_initial(Graph,start)
-    forward_heap = node_heap(dist,Graph)
+    dist = dist_initial(Graph, start)
+    forward_heap = node_heap(dist, Graph)
     
     predecesseur ={}
     visite = []
@@ -73,15 +81,15 @@ def dijkstra_classic(Graph,start : int , end: int):
     chemin += [start]
     time_end = time.time()
     execution_time = time_end - time_begin 
-    return chemin , dist[end], execution_time, visite 
+    return chemin, dist[end], execution_time, visite 
 
 
-def dijkstra_bidirect(Graph ,start : int, end : int): 
-    dist_forw = dist_initial(Graph,start)
-    dist_back = dist_initial(Graph,end)
-    forward_heap = node_heap(dist_forw,Graph)
-    backward_heap = node_heap(dist_back,Graph)
-    forward_visited , backward_visited = [] , []
+def dijkstra_bidirect(Graph, start:int, end:int): 
+    dist_forw = dist_initial(Graph, start)
+    dist_back = dist_initial(Graph, end)
+    forward_heap = node_heap(dist_forw, Graph)
+    backward_heap = node_heap(dist_back, Graph)
+    forward_visited , backward_visited = [], []
     forward_path, backward_path =  {start: []}, {end: []}
     time_begin = time.time()
     while not (forward_heap.is_empty() or backward_heap.is_empty()):
@@ -97,7 +105,7 @@ def dijkstra_bidirect(Graph ,start : int, end : int):
                 back_path = delete_double(backward_path[forward_node][::-1])
                 time_end = time.time()
                 execution_time = time_end - time_begin 
-                return forward_path[forward_node] + back_path , forward_dist + dist_back[forward_node],execution_time, forward_visited, backward_visited
+                return forward_path[forward_node] + back_path, forward_dist + dist_back[forward_node], execution_time, forward_visited, backward_visited
             # sinon, mise a jour du poids de chaque noeud voisin 
             for voisin,poids in Graph.neighbours(forward_node):
                 if voisin not in forward_visited:
